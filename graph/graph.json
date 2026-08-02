@@ -1,0 +1,488 @@
+{
+  "meta": {
+    "edge_semantics": "A in prereqs of B means B cannot be honestly understood without A. Edges are transitively reduced: if A->B->C, the edge A->C is omitted.",
+    "fluency_floor": [
+      "c-building-and-running",
+      "c-variables-types-addresses",
+      "c-expressions-conditionals",
+      "c-loops",
+      "c-functions-pass-by-value"
+    ],
+    "fluency_floor_note": "Every node in track C, D or A implicitly assumes the reader can read C at the level of these five nodes. This is assumed, not drawn, to keep the graph sparse."
+  },
+  "nodes": [
+    {
+      "id": "m-number-bases",
+      "track": "math",
+      "title": "Number bases: binary, decimal, hexadecimal",
+      "prereqs": [],
+      "scope": "Positional notation in an arbitrary base; binary and hexadecimal; conversion both directions; why one byte is exactly two hex digits; powers of two and the 2^10 = 10^3 approximation. Unsigned only."
+    },
+    {
+      "id": "m-propositional-logic",
+      "track": "math",
+      "title": "Propositional logic",
+      "prereqs": [],
+      "scope": "Propositions; and, or, not, implication, biconditional; truth tables; tautology and contradiction; logical equivalence; De Morgan; contrapositive versus converse; why implication has the truth table it has."
+    },
+    {
+      "id": "m-sets-functions",
+      "track": "math",
+      "title": "Sets and functions",
+      "prereqs": [],
+      "scope": "Set notation, membership, subset, union, intersection, difference, Cartesian product; N, Z, R; finite cardinality; functions with domain and codomain; injective, surjective, bijective; composition."
+    },
+    {
+      "id": "m-predicates-quantifiers",
+      "track": "math",
+      "title": "Predicates and quantifiers",
+      "prereqs": [
+        "m-propositional-logic",
+        "m-sets-functions"
+      ],
+      "scope": "Predicates as parameterised propositions; universal and existential quantifiers; bound variables; nested quantifiers and why their order changes meaning; negation of quantified statements."
+    },
+    {
+      "id": "m-growth-of-functions",
+      "track": "math",
+      "title": "Growth of functions: polynomial, exponential, logarithmic",
+      "prereqs": [
+        "m-sets-functions"
+      ],
+      "scope": "Comparing f(n) and g(n) as n grows; linear, quadratic, polynomial, exponential; the logarithm as the inverse of exponentiation; log_2 n as the number of halvings; log identities; why the base changes only a constant factor."
+    },
+    {
+      "id": "m-induction",
+      "track": "math",
+      "title": "Proof by induction",
+      "prereqs": [
+        "m-predicates-quantifiers"
+      ],
+      "scope": "Weak induction: base case, inductive step, inductive hypothesis. Worked proofs of summation identities, divisibility, and inequalities. Strong induction. Standard failure modes: absent base case, hypothesis applied at the wrong index."
+    },
+    {
+      "id": "m-summations",
+      "track": "math",
+      "title": "Summations and closed forms",
+      "prereqs": [
+        "m-induction"
+      ],
+      "scope": "Sigma notation and index manipulation; arithmetic series n(n+1)/2; geometric series and its closed form; sums arising from nested loops; each closed form proved, not asserted."
+    },
+    {
+      "id": "m-asymptotic-notation",
+      "track": "math",
+      "title": "Asymptotic notation: O, Omega, Theta",
+      "prereqs": [
+        "m-predicates-quantifiers",
+        "m-growth-of-functions"
+      ],
+      "scope": "Formal definitions of O, Omega, Theta with the explicit quantifier structure; proving membership from the definition; why constants and lower-order terms vanish; O as an upper bound rather than a tight one; the worst-case/best-case confusion addressed directly."
+    },
+    {
+      "id": "m-graphs-trees",
+      "track": "math",
+      "title": "Graphs and trees as mathematical objects",
+      "prereqs": [
+        "m-sets-functions"
+      ],
+      "scope": "G = (V, E); directed, undirected, weighted; adjacency and degree; walks, paths, cycles; connectivity and components; acyclicity; trees and |E| = |V| - 1; rooted trees, parent, child, leaf, depth, height; binary trees and node counts per level."
+    },
+    {
+      "id": "m-recurrences",
+      "track": "math",
+      "title": "Recurrence relations",
+      "prereqs": [
+        "m-summations"
+      ],
+      "scope": "T(n) expressed in terms of smaller arguments; solving by unrolling; guess and verify by induction; recursion trees; the shapes T(n) = T(n-1) + f(n) and T(n) = a T(n/b) + f(n); the master theorem stated and applied, not proved."
+    },
+    {
+      "id": "m-counting-expectation",
+      "track": "math",
+      "title": "Counting and expected value",
+      "prereqs": [
+        "m-sets-functions"
+      ],
+      "optional": true,
+      "scope": "Sum and product rules; permutations and combinations; uniform probability on a finite sample space; expectation and linearity of expectation. Included only to make average-case claims honest."
+    },
+    {
+      "id": "m-sort-lower-bound",
+      "track": "math",
+      "title": "The comparison-sort lower bound",
+      "prereqs": [
+        "m-asymptotic-notation",
+        "m-graphs-trees",
+        "m-counting-expectation"
+      ],
+      "optional": true,
+      "scope": "Decision trees for comparison sorts; n! leaves; height at least log_2(n!); Stirling bound giving Omega(n log n)."
+    },
+    {
+      "id": "c-machine-model",
+      "track": "c",
+      "title": "The machine model",
+      "prereqs": [
+        "m-number-bases"
+      ],
+      "scope": "Bits, bytes, addresses, memory as an addressable array; hexadecimal byte notation; the untyped nature of memory; registers; fetch-decode-execute; the program counter; stored-program; virtual addresses and pipelining flagged as simplifications."
+    },
+    {
+      "id": "c-building-and-running",
+      "track": "c",
+      "title": "Building and running a C program",
+      "prereqs": [
+        "c-machine-model"
+      ],
+      "scope": "Installing a compiler on Linux, macOS and Windows; a minimal main; printf; the compile-then-run cycle with the toolchain as a black box; reading a first compiler error; source file versus executable file versus running process; exit status."
+    },
+    {
+      "id": "c-variables-types-addresses",
+      "track": "c",
+      "title": "Variables, types, and memory addresses",
+      "prereqs": [
+        "c-building-and-running"
+      ],
+      "scope": "Declaration and definition; a type as size plus interpretation; sizeof; the address-of operator; scope and lifetime of automatic variables; assignment as a write to an address; uninitialised variables."
+    },
+    {
+      "id": "c-integer-representation",
+      "track": "c",
+      "title": "Integer representation, fixed width, and overflow",
+      "prereqs": [
+        "c-variables-types-addresses"
+      ],
+      "scope": "Fixed-width integer types; unsigned wraparound; two's complement; signed overflow as undefined behaviour; char as a small integer and ASCII; implicit conversion and truncation; stdint.h."
+    },
+    {
+      "id": "c-expressions-conditionals",
+      "track": "c",
+      "title": "Expressions, operators, and conditionals",
+      "prereqs": [
+        "c-variables-types-addresses",
+        "m-propositional-logic"
+      ],
+      "scope": "Arithmetic, relational and logical operators; precedence; integer division and modulo; truth as zero versus non-zero; short-circuit evaluation; if, else, else-if, switch; the assignment-in-condition error."
+    },
+    {
+      "id": "c-loops",
+      "track": "c",
+      "title": "Loops and iteration",
+      "prereqs": [
+        "c-expressions-conditionals"
+      ],
+      "scope": "while, for, do-while; break and continue; off-by-one errors; nested loops; termination and non-termination."
+    },
+    {
+      "id": "c-functions-pass-by-value",
+      "track": "c",
+      "title": "Functions, parameters, and pass-by-value",
+      "prereqs": [
+        "c-expressions-conditionals"
+      ],
+      "scope": "Declaration versus definition; parameters and arguments; return values; void; pass-by-value demonstrated by showing the caller's variable unchanged; prototypes; local scope. Recursion deliberately excluded."
+    },
+    {
+      "id": "c-stack",
+      "track": "c",
+      "title": "The stack and function calls",
+      "prereqs": [
+        "c-functions-pass-by-value"
+      ],
+      "scope": "Stack frames and their contents; push on call, pop on return; the return address; why locals cease to exist; call depth and stack overflow; why returning a pointer to a local is wrong."
+    },
+    {
+      "id": "c-recursion",
+      "track": "c",
+      "title": "Recursion",
+      "prereqs": [
+        "c-stack",
+        "m-induction"
+      ],
+      "scope": "Base case and recursive case; trusting the recursive call as an inductive hypothesis; frame-by-frame tracing; factorial, Fibonacci, binary recursion; the exponential cost of naive Fibonacci argued qualitatively; missing base case as stack overflow."
+    },
+    {
+      "id": "c-pointers",
+      "track": "c",
+      "title": "Pointers",
+      "prereqs": [
+        "c-stack"
+      ],
+      "scope": "A pointer as a typed address; address-of and dereference; NULL; pointer to pointer; out-parameters; swap; why the pointed-to type matters; the misconception that a pointer contains the value."
+    },
+    {
+      "id": "c-arrays",
+      "track": "c",
+      "title": "Arrays and contiguous memory",
+      "prereqs": [
+        "c-loops"
+      ],
+      "scope": "Declaration; zero-based indexing; contiguity; the address arithmetic the compiler performs; iteration; sizeof on an array; fixed compile-time size; absence of bounds checking and what actually happens on overrun; two-dimensional arrays in row-major order."
+    },
+    {
+      "id": "c-pointer-arithmetic",
+      "track": "c",
+      "title": "Pointer arithmetic and array decay",
+      "prereqs": [
+        "c-pointers",
+        "c-arrays"
+      ],
+      "scope": "p + 1 scaled by the element size; pointer difference; array-to-pointer decay; why sizeof fails on a parameter; passing an array with an explicit length; one-past-the-end; the equivalence of a[i] and *(a + i)."
+    },
+    {
+      "id": "c-structs",
+      "track": "c",
+      "title": "Structs and memory layout",
+      "prereqs": [
+        "c-variables-types-addresses"
+      ],
+      "scope": "Aggregate types; member access via dot and arrow; structs copied on assignment and on call; layout, padding and alignment; sizeof of a struct; nesting; typedef; arrays of structs."
+    },
+    {
+      "id": "c-strings",
+      "track": "c",
+      "title": "Strings as char arrays",
+      "prereqs": [
+        "c-integer-representation",
+        "c-pointer-arithmetic"
+      ],
+      "scope": "NUL termination; char arrays versus string literals; why literals are read-only; strlen as a linear scan; strcpy, strcmp, strcat and their buffer requirements; the terminator off-by-one; each function reimplemented by hand."
+    },
+    {
+      "id": "c-heap",
+      "track": "c",
+      "title": "The heap: malloc, free, and object lifetime",
+      "prereqs": [
+        "c-pointers",
+        "c-arrays"
+      ],
+      "scope": "Automatic versus allocated lifetime; malloc, calloc, realloc, free; checking for NULL; computing the size correctly; ownership; returning allocated memory from a function; why the stack cannot do this."
+    },
+    {
+      "id": "c-memory-errors",
+      "track": "c",
+      "title": "Memory errors: leaks, dangling pointers, use-after-free",
+      "prereqs": [
+        "c-heap"
+      ],
+      "scope": "Leaks, double free, use-after-free, dangling pointers, buffer overruns, reading uninitialised memory; why the symptom surfaces far from the cause; valgrind and -fsanitize=address."
+    },
+    {
+      "id": "c-linking",
+      "track": "c",
+      "title": "Multi-file programs, headers, and linking",
+      "prereqs": [
+        "c-functions-pass-by-value",
+        "c-structs"
+      ],
+      "scope": "Translation units; declaration versus definition revisited; header files and include guards; extern; static for internal linkage; distinguishing compiler errors from linker errors; a minimal Makefile."
+    },
+    {
+      "id": "c-function-pointers",
+      "track": "c",
+      "title": "Function pointers",
+      "prereqs": [
+        "c-pointers"
+      ],
+      "scope": "Syntax; taking a function's address; calling through a pointer; passing behaviour as an argument; the qsort comparator; dispatch tables."
+    },
+    {
+      "id": "c-dynamic-arrays",
+      "track": "c",
+      "title": "Growable arrays: realloc and amortised doubling",
+      "prereqs": [
+        "c-heap",
+        "a-analysis-iterative"
+      ],
+      "scope": "realloc semantics and pointer invalidation; capacity versus length; geometric growth; why growing by a constant is quadratic and doubling is amortised constant, argued from the geometric series."
+    },
+    {
+      "id": "c-debugging",
+      "track": "c",
+      "title": "Debugging: printf, gdb, sanitisers",
+      "prereqs": [
+        "c-functions-pass-by-value"
+      ],
+      "scope": "Reading a compiler error properly; printf instrumentation; gdb break, run, step, print, backtrace; reading a stack trace; sanitisers; forming a hypothesis and shrinking the failing input."
+    },
+    {
+      "id": "d-linked-lists",
+      "track": "ds",
+      "title": "Linked lists",
+      "prereqs": [
+        "c-heap",
+        "c-structs"
+      ],
+      "scope": "Self-referential node struct; head pointer; traversal; insertion at head, tail and interior; deletion; freeing the whole list; the dummy-head technique; doubly linked lists; when a list beats an array and when it does not."
+    },
+    {
+      "id": "d-stacks-queues",
+      "track": "ds",
+      "title": "Stacks and queues",
+      "prereqs": [
+        "d-linked-lists"
+      ],
+      "scope": "Abstract data type versus implementation; push and pop, enqueue and dequeue; array-backed circular buffer and list-backed versions; the constant-time claims; underflow and overflow."
+    },
+    {
+      "id": "d-binary-trees",
+      "track": "ds",
+      "title": "Binary trees and traversals",
+      "prereqs": [
+        "d-linked-lists",
+        "c-recursion",
+        "m-graphs-trees"
+      ],
+      "scope": "Node struct with two children; the recursive structure; preorder, inorder, postorder; height and node counts; recursive size, height and destruction; iterative traversal with an explicit stack; why traversal is naturally recursive."
+    },
+    {
+      "id": "d-bst",
+      "track": "ds",
+      "title": "Binary search trees",
+      "prereqs": [
+        "d-binary-trees",
+        "a-searching"
+      ],
+      "scope": "The ordering invariant; search, insert, and the three deletion cases; inorder traversal producing sorted order; height as the cost determinant; degeneration to a list on sorted input; balancing named but not implemented."
+    },
+    {
+      "id": "d-hash-tables",
+      "track": "ds",
+      "title": "Hash tables",
+      "prereqs": [
+        "d-linked-lists",
+        "c-strings",
+        "a-analysis-iterative"
+      ],
+      "scope": "Mapping keys to indices; hash functions for integers and strings; collisions; separate chaining; load factor and rehashing; open addressing and clustering; average versus worst case; how a poor hash destroys the guarantee."
+    },
+    {
+      "id": "d-heaps",
+      "track": "ds",
+      "title": "Binary heaps and priority queues",
+      "prereqs": [
+        "d-binary-trees",
+        "a-analysis-iterative"
+      ],
+      "scope": "The heap property; a complete binary tree stored in an array; parent and child index arithmetic; sift up and sift down; insert and extract-min; linear-time build-heap; heapsort."
+    },
+    {
+      "id": "d-graph-representations",
+      "track": "ds",
+      "title": "Representing graphs: adjacency matrix and adjacency list",
+      "prereqs": [
+        "m-graphs-trees",
+        "d-linked-lists"
+      ],
+      "scope": "Adjacency matrix versus adjacency list; space and time tradeoffs; directed, undirected and weighted variants; construction from an edge list; iterating over neighbours."
+    },
+    {
+      "id": "a-analysis-iterative",
+      "track": "algo",
+      "title": "Counting operations: analysing iterative algorithms",
+      "prereqs": [
+        "m-asymptotic-notation",
+        "m-summations",
+        "c-arrays"
+      ],
+      "scope": "Counting primitive operations; loop counts as summations; nested loops; best, worst and average case; converting a count into Theta; defining input size; the error of assuming nested loops are always quadratic."
+    },
+    {
+      "id": "a-loop-invariants",
+      "track": "algo",
+      "title": "Loop invariants and correctness",
+      "prereqs": [
+        "m-induction",
+        "c-loops"
+      ],
+      "scope": "What an invariant is; initialisation, maintenance, termination; proving a loop computes what it claims; deriving the postcondition from the invariant and the negated guard; invariants for sum, maximum, and insertion sort's inner loop."
+    },
+    {
+      "id": "a-searching",
+      "track": "algo",
+      "title": "Linear search and binary search",
+      "prereqs": [
+        "a-analysis-iterative",
+        "a-loop-invariants",
+        "c-pointer-arithmetic"
+      ],
+      "scope": "Linear search and its linear cost; binary search on a sorted array; the invariant; correct midpoint computation and the overflow bug; termination; the halving recurrence giving logarithmic cost; boundary off-by-one errors."
+    },
+    {
+      "id": "a-elementary-sorts",
+      "track": "algo",
+      "title": "Elementary sorts: selection, insertion, bubble",
+      "prereqs": [
+        "a-analysis-iterative",
+        "a-loop-invariants",
+        "c-pointer-arithmetic"
+      ],
+      "scope": "Selection, insertion and bubble sort; invariants for each; comparison and swap counts; best, worst and average case; stability; in-place operation; why insertion sort wins on nearly-sorted input."
+    },
+    {
+      "id": "a-analysis-recursive",
+      "track": "algo",
+      "title": "Analysing recursive algorithms",
+      "prereqs": [
+        "m-recurrences",
+        "m-asymptotic-notation",
+        "c-recursion"
+      ],
+      "scope": "Deriving the recurrence from the code; recursion trees; solving by unrolling and verifying by induction; applying the master theorem; accounting for space as well as time."
+    },
+    {
+      "id": "a-mergesort",
+      "track": "algo",
+      "title": "Mergesort",
+      "prereqs": [
+        "a-analysis-recursive",
+        "c-heap",
+        "c-pointer-arithmetic"
+      ],
+      "scope": "Merging two sorted runs; the scratch buffer and its allocation; recursive splitting; T(n) = 2T(n/2) + Theta(n); stability; linear extra space; the bottom-up variant."
+    },
+    {
+      "id": "a-quicksort",
+      "track": "algo",
+      "title": "Quicksort",
+      "prereqs": [
+        "a-analysis-recursive",
+        "c-pointer-arithmetic"
+      ],
+      "scope": "Lomuto and Hoare partitioning; recursion on the parts; best, worst and average case; pivot choice; quadratic behaviour on sorted input with a naive pivot; in-place operation; recursion depth."
+    },
+    {
+      "id": "a-bfs",
+      "track": "algo",
+      "title": "Breadth-first search",
+      "prereqs": [
+        "d-graph-representations",
+        "d-stacks-queues"
+      ],
+      "scope": "Layer-by-layer exploration; the queue; visited marking; shortest paths in unweighted graphs; parent array and path reconstruction; Theta(V + E); why vertices are marked on enqueue rather than dequeue."
+    },
+    {
+      "id": "a-dfs",
+      "track": "algo",
+      "title": "Depth-first search",
+      "prereqs": [
+        "d-graph-representations",
+        "c-recursion",
+        "d-stacks-queues"
+      ],
+      "scope": "Recursive and explicit-stack formulations; discovery and finish; visited marking; connected components; cycle detection; Theta(V + E); recursion depth on large graphs; contrast with BFS."
+    },
+    {
+      "id": "a-generic-sort",
+      "track": "algo",
+      "title": "Generic sorting with comparators",
+      "prereqs": [
+        "c-function-pointers",
+        "a-elementary-sorts"
+      ],
+      "optional": true,
+      "scope": "Comparator function signature; void* elements; byte-level swapping; using qsort; the type safety that is given up."
+    }
+  ]
+}
