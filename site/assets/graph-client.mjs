@@ -74,11 +74,18 @@ function nodeMarkup(node) {
     .map((f) => `<circle class="punch-hole" cx="8" cy="${Math.round(h * f)}" r="1.5"></circle>`)
     .join("");
 
+  // All the small per-node indicator dots line up in a single row anchored
+  // to the bottom-right corner, closest (the track stamp) to the corner.
+  const cornerDots = [{ cls: "stamp", r: 5.5 }];
+  if (isFloor) cornerDots.push({ cls: "floor-dot", r: 3.5 });
+  const dots = cornerDots
+    .map((d, i) => `<circle class="${d.cls}" cx="${w - 13 - i * 14}" cy="${h - 13}" r="${d.r}"></circle>`)
+    .join("");
+
   return `<g class="${classes.join(" ")}" data-id="${node.id}" transform="translate(${left}, ${top})">
     <path class="card" d="${cardPath}"></path>
     ${holes}
-    <circle class="stamp" cx="${w - 13}" cy="${h - 13}" r="5.5"></circle>
-    ${isFloor ? `<circle class="floor-dot" cx="${w - 34}" cy="13" r="3.5"></circle>` : ""}
+    ${dots}
     <foreignObject x="${CARD_TEXT_INSET}" y="0" width="${w - CARD_TEXT_INSET}" height="${h}">
       <div xmlns="http://www.w3.org/1999/xhtml" class="node-content">
         <div class="node-title">${escapeHtml(node.title)}</div>
