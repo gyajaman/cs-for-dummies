@@ -74,12 +74,13 @@ function nodeMarkup(node) {
     .map((f) => `<circle class="punch-hole" cx="8" cy="${Math.round(h * f)}" r="1.5"></circle>`)
     .join("");
 
-  // All the small per-node indicator dots line up in a single row anchored
-  // to the bottom-right corner, closest (the track stamp) to the corner.
-  const cornerDots = [{ cls: "stamp", r: 5.5 }];
-  if (isFloor) cornerDots.push({ cls: "floor-dot", r: 3.5 });
+  // All the small per-node indicator dots line up in a single row, same
+  // size, anchored to the bottom-right corner, closest (the track stamp)
+  // to the corner.
+  const cornerDots = [{ cls: "stamp" }];
+  if (isFloor) cornerDots.push({ cls: "floor-dot" });
   const dots = cornerDots
-    .map((d, i) => `<circle class="${d.cls}" cx="${w - 13 - i * 14}" cy="${h - 13}" r="${d.r}"></circle>`)
+    .map((d, i) => `<circle class="${d.cls}" cx="${w - 13 - i * 14}" cy="${h - 13}" r="4.5"></circle>`)
     .join("");
 
   return `<g class="${classes.join(" ")}" data-id="${node.id}" transform="translate(${left}, ${top})">
