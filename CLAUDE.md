@@ -53,8 +53,10 @@ by KaTeX.
     **What is actually true:** <correction, with a concrete artefact — output, byte
     values, an address — not a general warning>
 
-**Forward references** name the future node in prose but are not hyperlinked. Students
-should not be invited to wander ahead.
+**Article references**, forward or backward, name the other node's exact title in
+backticks — `` `Exact Node Title` `` — and the build hyperlinks any backticked span that
+matches a node title exactly to that node's article. Use the title verbatim; a
+paraphrase or shortened form will silently fail to link.
 
 **Diagrams** are separate SVG files in `content/<node-id>/figures/`, referenced by figure
 number with a full caption. An article must remain coherent read as text alone; a figure

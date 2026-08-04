@@ -56,7 +56,7 @@ A common starting picture is that memory holds *things* — a number here, a wor
 
 **What is actually true:** memory holds bytes. A byte is a pattern of eight bits and nothing else. It does not know whether it is part of a number, part of a letter, part of an image, or part of the program's own instructions. There is no label, no type tag, no marker for where one item ends and the next begins. If you look at address 4000 and find the byte `48`, that byte is `48`. What it *means* is determined entirely by the code that reads it.
 
-This is not a pedantic distinction. It is the reason C behaves the way it does, and you will meet it again in `Variables, types, and memory addresses`, in `Integer representation`, and every time a program crashes.
+This is not a pedantic distinction. It is the reason C behaves the way it does, and you will meet it again in `Variables, types, and memory addresses`, in `Integer representation, fixed width, and overflow`, and every time a program crashes.
 
 ## 3. The same bytes, several meanings
 
@@ -123,7 +123,7 @@ Nothing in that sequence knows it computed a sum of two quantities that a human 
 
 The instructions in that trace live at addresses 100 to 127. Those are ordinary memory addresses in the ordinary memory, holding ordinary bytes. There is no separate compartment for code. The only thing that makes the bytes at address 100 "instructions" is that `PC` pointed at them and the fetch–decode–execute loop ran over them.
 
-This is the **stored-program** idea, and it is what makes a general-purpose computer possible. Because programs are just bytes, a program can be loaded from a file, moved around, and — crucially — a program can be the *output* of another program. That is what a compiler is: a program whose output bytes are another program's instructions. `C compilation` covers this.
+This is the **stored-program** idea, and it is what makes a general-purpose computer possible. Because programs are just bytes, a program can be loaded from a file, moved around, and — crucially — a program can be the *output* of another program. That is what a compiler is: a program whose output bytes are another program's instructions. `Building and running a C program` covers this.
 
 It also means that a program which writes to the wrong address can overwrite its own instructions, and the CPU will fetch and execute whatever is now there. Modern operating systems mark instruction regions read-only to prevent exactly this, but the marking is a protection added on top, not a property of the memory.
 
