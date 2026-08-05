@@ -114,7 +114,11 @@ function renderArticle(node, articlePath, byId, titleToId, writtenIds) {
     throw new Error(`${node.id}: frontmatter title does not match graph.json`);
   }
 
-  const prereqs = node.prereqs.map((id) => ({ id, title: byId.get(id).title }));
+  const prereqs = node.prereqs.map((id) => ({
+    id,
+    title: byId.get(id).title,
+    hasArticle: writtenIds.has(id),
+  }));
   const page = renderArticlePage({ node, bodyHtml: html, prereqs });
 
   const outDir = path.join(DIST_DIR, "articles", node.id);

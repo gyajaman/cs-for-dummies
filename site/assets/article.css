@@ -123,6 +123,17 @@ body {
   border-color: var(--border-strong);
 }
 
+.article-prereqs .chip-locked {
+  color: var(--text-faint);
+  border-style: dashed;
+  cursor: default;
+}
+
+.article-prereqs .chip-locked:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+}
+
 .article-body {
   font-family: var(--font-serif);
   font-size: var(--text-base);
@@ -175,6 +186,42 @@ body {
 .article-body a {
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
+}
+
+.article-body table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: var(--space-5) 0;
+  font-size: var(--text-sm);
+}
+
+.article-body th,
+.article-body td {
+  border: 1px solid var(--border);
+  padding: var(--space-2) var(--space-4);
+  text-align: center;
+}
+
+.article-body th {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  font-weight: normal;
+}
+
+.article-body tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--bg-elevated) 45%, transparent);
+}
+
+.article-body td code,
+.article-body th code {
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .article-body code {

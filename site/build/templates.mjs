@@ -106,7 +106,11 @@ ${head({ title, description, assetPrefix: "" })}
 export function renderArticlePage({ node, bodyHtml, prereqs }) {
   const prereqChips = prereqs.length
     ? `<div class="article-prereqs">Requires: ${prereqs
-        .map((p) => `<a class="chip" href="../${p.id}/index.html">${escapeHtml(p.title)}</a>`)
+        .map((p) =>
+          p.hasArticle
+            ? `<a class="chip" href="../${p.id}/index.html">${escapeHtml(p.title)}</a>`
+            : `<span class="chip chip-locked">${escapeHtml(p.title)}</span>`
+        )
         .join("")}</div>`
     : "";
 
