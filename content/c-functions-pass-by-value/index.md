@@ -117,9 +117,9 @@ back in main, n is still 5
 
 `n` is `5` before the call and `5` after it, even though `try_to_change` assigned `100` to its parameter. This is what **pass-by-value** means: calling `try_to_change(n)` copies `n`'s current value into the parameter `x`, a completely separate piece of storage with its own address. Everything `try_to_change` does to `x` — assignments, arithmetic, anything — happens to that copy alone. There is no route back to `n` from inside the function; C simply does not hand a function the caller's variable, only a value.
 
-### Wrong model: passing a variable to a function lets the function change it
+### Wrong model: Passing a variable to a function lets the function change it
 
-**What is actually true:** a parameter is a local variable, brought into existence fresh for this call and initialised with a copy of whatever the argument evaluated to — the same "fresh storage on entry" rule every local variable follows, from `Variables, types, and memory addresses`. Assigning to a parameter only ever changes that local copy. Making a function actually change the caller's variable is possible in C, but it requires giving the function the variable's address rather than its value, which needs `Pointers`, not covered here.
+**What is actually true:** A parameter is a local variable, brought into existence fresh for this call and initialised with a copy of whatever the argument evaluated to — the same "fresh storage on entry" rule every local variable follows, from `Variables, types, and memory addresses`. Assigning to a parameter only ever changes that local copy. Making a function actually change the caller's variable is possible in C, but it requires giving the function the variable's address rather than its value, which needs `Pointers`, not covered here.
 
 ## 6. Prototypes
 
@@ -175,9 +175,9 @@ calls is 1
 
 `calls` prints `1` all three times, not `1`, `2`, `3`. `count_once`'s body is a block like any other, and `Variables, types, and memory addresses` already established what that means: a variable declared inside a block gets fresh storage each time execution enters it. Every call to `count_once` is a fresh entry into its body, so `calls` is declared and initialised to `0` all over again on every call — there is no memory of the previous call anywhere for it to have accumulated in.
 
-### Wrong model: a local variable remembers its value between calls
+### Wrong model: A local variable remembers its value between calls
 
-**What is actually true:** an ordinary local variable's storage does not outlive the block it was declared in, and a function's body ends, as a block, the moment that call returns. The next call is a completely new entry into that block, with new storage, however many times the function has been called before. Nothing about `count_once`'s third call knows the first two ever happened.
+**What is actually true:** An ordinary local variable's storage does not outlive the block it was declared in, and a function's body ends, as a block, the moment that call returns. The next call is a completely new entry into that block, with new storage, however many times the function has been called before. Nothing about `count_once`'s third call knows the first two ever happened.
 
 ## Exercises
 

@@ -72,7 +72,7 @@ sizeof(char) + sizeof(int) is 5
 
 ### Wrong model: `sizeof` a struct always equals the sum of its members' sizes
 
-**What is actually true:** it is at least that sum, but the compiler is free to insert padding between members, or after the last one, to satisfy each member's alignment requirement, and the total can come out larger than the members alone would suggest. `struct mixed` is the demonstration: `1 + 4 = 5`, but `sizeof(struct mixed)` is `8`. Reordering members can change how much padding a compiler chooses to insert, but reasoning about the exact bytes without asking `sizeof` directly is guesswork, not something to hand-compute and trust.
+**What is actually true:** It is at least that sum, but the compiler is free to insert padding between members, or after the last one, to satisfy each member's alignment requirement, and the total can come out larger than the members alone would suggest. `struct mixed` is the demonstration: `1 + 4 = 5`, but `sizeof(struct mixed)` is `8`. Reordering members can change how much padding a compiler chooses to insert, but reasoning about the exact bytes without asking `sizeof` directly is guesswork, not something to hand-compute and trust.
 
 ## 4. Nesting
 
@@ -165,7 +165,7 @@ b is (100, 2)
 
 `struct point b = a;` copies every byte of `a` into `b`'s own, separate storage — all of it, both members, in one statement, the same way `n = m;` copies a plain `int`. Changing `b.x` afterward has no effect on `a.x`, because after that line the two variables share nothing; `a` and `b` are two independent addresses in memory, each holding its own complete `struct point`. Passing a struct as a function argument, or returning one, copies it the exact same way, for the same reason: it follows the pass-by-value rule `Functions, parameters, and pass-by-value` already established for every other type, without exception for having more than one member.
 
-### Wrong model: assigning one struct variable to another links them
+### Wrong model: Assigning one struct variable to another links them
 
 **What is actually true:** `b = a;` copies `a`'s bytes into `b` once, at that moment, and nothing more — it does not make `b` an alternate name for `a`'s storage, and no later change to either one is reflected in the other. This is worth stating plainly because it is not universal across programming languages: some languages assign composite values by reference, so that two names end up pointing at one shared object. C does not. A struct assignment is a full, independent copy, exactly like every other assignment in this book.
 

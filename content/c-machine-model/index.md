@@ -50,11 +50,11 @@ Reading does not consume anything; you can read the same address a million times
 
 The size of the address is itself a design decision with visible consequences. If an address is 32 bits wide, then there are $2^{32}$ distinct addresses, so at most $2^{32}$ bytes $\approx 4.3$ GB of memory can be named at all. This is not a limitation of the memory chips; it is a limitation of the numbering. Machines you use today have 64-bit addresses, giving $2^{64} \approx 1.8 \times 10^{19}$ nameable bytes, which is enormously more memory than exists.
 
-### Wrong model: memory stores your data in labelled containers
+### Wrong model: Memory stores your data in labelled containers
 
 A common starting picture is that memory holds *things* — a number here, a word there, each in its own container, each container knowing what kind of thing it holds.
 
-**What is actually true:** memory holds bytes. A byte is a pattern of eight bits and nothing else. It does not know whether it is part of a number, part of a letter, part of an image, or part of the program's own instructions. There is no label, no type tag, no marker for where one item ends and the next begins. If you look at address 4000 and find the byte `48`, that byte is `48`. What it *means* is determined entirely by the code that reads it.
+**What is actually true:** Memory holds bytes. A byte is a pattern of eight bits and nothing else. It does not know whether it is part of a number, part of a letter, part of an image, or part of the program's own instructions. There is no label, no type tag, no marker for where one item ends and the next begins. If you look at address 4000 and find the byte `48`, that byte is `48`. What it *means* is determined entirely by the code that reads it.
 
 This is not a pedantic distinction. It is the reason C behaves the way it does, and you will meet it again in `Variables, types, and memory addresses`, in `Integer representation, fixed width, and overflow`, and every time a program crashes.
 
@@ -127,9 +127,9 @@ This is the **stored-program** idea, and it is what makes a general-purpose comp
 
 It also means that a program which writes to the wrong address can overwrite its own instructions, and the CPU will fetch and execute whatever is now there. Modern operating systems mark instruction regions read-only to prevent exactly this, but the marking is a protection added on top, not a property of the memory.
 
-### Wrong model: the CPU understands C
+### Wrong model: The CPU understands C
 
-**What is actually true:** the CPU understands one instruction set — a fixed, finite list of operations encoded as byte patterns, wired into the silicon. It has never encountered C, has no notion of a variable name, a function, a type, or a loop. Every one of those is a construct that exists in your source file and is gone by the time the program runs. A compiler's job is to translate them into loads, stores, arithmetic, and jumps. When you later ask "how fast is this loop", the honest form of the question is "how many instructions does this become, and how many of them touch memory".
+**What is actually true:** The CPU understands one instruction set — a fixed, finite list of operations encoded as byte patterns, wired into the silicon. It has never encountered C, has no notion of a variable name, a function, a type, or a loop. Every one of those is a construct that exists in your source file and is gone by the time the program runs. A compiler's job is to translate them into loads, stores, arithmetic, and jumps. When you later ask "how fast is this loop", the honest form of the question is "how many instructions does this become, and how many of them touch memory".
 
 ## 6. Two honest simplifications
 
@@ -201,7 +201,7 @@ Read the output against the model:
 
 **The addresses of `n` and `c`.** In the run above, `c` sits at a *lower* address than `n`, even though it appears second in the source. Do not conclude that the compiler reverses things; conclude that the source order of two independent variables tells you nothing about their addresses. The compiler places them wherever it likes.
 
-### Wrong model: a variable is a labelled box the machine knows about
+### Wrong model: A variable is a labelled box the machine knows about
 
 **What is actually true:** `n` is a name that exists in your source file. After compilation it is gone. What remains is an address, hard-coded into the load and store instructions the compiler emitted. Nothing at that address records that it was once called `n`, and nothing records that it holds a four-byte integer rather than four one-byte characters. `Variables, types, and memory addresses` builds this out properly.
 

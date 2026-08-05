@@ -194,11 +194,11 @@ int main(void)
 
 `pi` and `pc` hold the exact same address — `&n` — yet `*pi` and `*pc` read completely different things, because dereferencing does not just "get the value at an address"; it reads however many bytes the pointer's type says to read, and interprets them however that type says to. `*pi` reads all `4` bytes of `n` as an `int`: `1000`. `*pc` reads only the first, single byte, as an `unsigned char`: `232`, the same least-significant byte `The machine model` and `Integer representation, fixed width, and overflow` would predict from `1000`'s bit pattern. The type is not decoration on a pointer — it is what makes dereferencing mean anything specific at all. Doing arithmetic on a pointer, `p + 1` and beyond, depends on this same type just as heavily; that is `Pointer arithmetic and array decay`'s subject.
 
-### Wrong model: a pointer contains the value it points to
+### Wrong model: A pointer contains the value it points to
 
-**What is actually true:** a pointer contains an address, and nothing else — the value lives separately, at that address, in storage the pointer merely names. `p` in section 1 never held `42`; it held `n`'s address, and `42` stayed exactly where it always was, in `n`'s own storage. Reaching the value takes an explicit step, dereferencing, precisely because the pointer and the value are two different things at two different addresses, one of which happens to point at the other.
+**What is actually true:** A pointer contains an address, and nothing else — the value lives separately, at that address, in storage the pointer merely names. `p` in section 1 never held `42`; it held `n`'s address, and `42` stayed exactly where it always was, in `n`'s own storage. Reaching the value takes an explicit step, dereferencing, precisely because the pointer and the value are two different things at two different addresses, one of which happens to point at the other.
 
-### Wrong model: a NULL pointer and an uninitialised pointer are the same thing
+### Wrong model: A NULL pointer and an uninitialised pointer are the same thing
 
 **What is actually true:** `NULL` is one specific, well-defined value, deliberately assigned. An uninitialised pointer, declared with no `= value`, follows the exact same rule `Variables, types, and memory addresses` established for every uninitialised variable: its bits are whatever was already sitting in that storage, not `NULL`, not any particular value at all. `p != NULL` says nothing useful about a pointer nobody has ever assigned — it might not be `NULL` by sheer accident of leftover bits, and dereferencing it is exactly as dangerous as dereferencing one you know is `NULL`, for exactly the same reason: neither one has ever been pointed anywhere meaningful.
 

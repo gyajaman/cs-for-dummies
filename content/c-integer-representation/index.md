@@ -90,9 +90,9 @@ int overflowed = n + 1;
 
 This is not excluded here because it fails to compile. It compiles. It is excluded because there is no output honestly worth checking: unlike unsigned overflow, **signed overflow is undefined behaviour** — the C standard places no requirement on what happens at all. A compiler is permitted to assume signed overflow never occurs and optimise your code as though it can't, which in practice can produce results with no relationship to two's complement wraparound whatsoever, not merely "the wrong number."
 
-### Wrong model: signed overflow wraps around, the same way unsigned overflow does
+### Wrong model: Signed overflow wraps around, the same way unsigned overflow does
 
-**What is actually true:** unsigned wraparound is a guarantee written into the language; signed overflow is the *absence* of any guarantee. They are not two cases of the same rule with different ranges. A particular compiler, on a particular day, might happen to produce a wrapped-looking value for `INT_MAX + 1` — this program probably will, right now, on the machine you are reading this on — but nothing requires it to keep doing so, and an optimiser is free to notice the overflow is undefined and delete code that depended on it, silently. `uint8_t`'s `255 + 1` becoming `0` is a promise. `int`'s `INT_MAX + 1` is not.
+**What is actually true:** Unsigned wraparound is a guarantee written into the language; signed overflow is the *absence* of any guarantee. They are not two cases of the same rule with different ranges. A particular compiler, on a particular day, might happen to produce a wrapped-looking value for `INT_MAX + 1` — this program probably will, right now, on the machine you are reading this on — but nothing requires it to keep doing so, and an optimiser is free to notice the overflow is undefined and delete code that depended on it, silently. `uint8_t`'s `255 + 1` becoming `0` is a promise. `int`'s `INT_MAX + 1` is not.
 
 ## 5. char as a small integer, and ASCII
 
@@ -122,7 +122,7 @@ int main(void)
 
 ### Wrong model: `char` is always a signed type
 
-**What is actually true:** whether plain `char` is signed or unsigned is left to the implementation by the C standard — `signed char` and `unsigned char` are always what they say, but unqualified `char` might match either, depending on the platform.
+**What is actually true:** Whether plain `char` is signed or unsigned is left to the implementation by the C standard — `signed char` and `unsigned char` are always what they say, but unqualified `char` might match either, depending on the platform.
 
 ```c file=charrange.c run
 #include <stdio.h>

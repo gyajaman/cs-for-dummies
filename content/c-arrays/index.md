@@ -115,9 +115,9 @@ a[10] = 1;
 
 This compiles. It may even run without any visible symptom. Neither of those facts means it is safe: C performs no bounds checking on array indexing, at compile time or at run time. `a[10]` computes an address the same way `a[2]` does — `a`'s address plus `10 * sizeof(int)` — and that computed address is read or written exactly as requested, regardless of whether it belongs to `a` at all. Whatever happened to be sitting at that address, quite possibly a completely unrelated variable, gets overwritten with no warning that anything unusual occurred.
 
-### Wrong model: an out-of-bounds array access is safely caught, or at least reliably crashes
+### Wrong model: An out-of-bounds array access is safely caught, or at least reliably crashes
 
-**What is actually true:** nothing catches it, and nothing guarantees a crash. `a[10]` on a `5`-element array is undefined behaviour: the address computed is simply wherever the arithmetic lands, and what happens next depends entirely on what else occupies that memory. It might silently corrupt a variable that has nothing to do with `a`. It might, if the address happens to fall well outside memory the program is allowed to touch, be stopped by the operating system — a crash, but a lucky one, not a language guarantee. It might do nothing visible at all, this run, and something different the next time the program is compiled with different settings. Every one of these is a legitimate outcome of the same undefined behaviour; none of them is C "handling" the mistake.
+**What is actually true:** Nothing catches it, and nothing guarantees a crash. `a[10]` on a `5`-element array is undefined behaviour: the address computed is simply wherever the arithmetic lands, and what happens next depends entirely on what else occupies that memory. It might silently corrupt a variable that has nothing to do with `a`. It might, if the address happens to fall well outside memory the program is allowed to touch, be stopped by the operating system — a crash, but a lucky one, not a language guarantee. It might do nothing visible at all, this run, and something different the next time the program is compiled with different settings. Every one of these is a legitimate outcome of the same undefined behaviour; none of them is C "handling" the mistake.
 
 ## 7. Two-dimensional arrays in row-major order
 

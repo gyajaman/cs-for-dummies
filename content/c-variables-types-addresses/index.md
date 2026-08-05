@@ -113,11 +113,11 @@ The inner `{ }` introduces a nested block with its own `x`: a completely separat
 
 Variables declared this way, inside a function body with no special keyword, have **automatic** storage duration: their storage comes into existence when execution reaches the declaration, and stops being valid once the enclosing block ends. Where that storage actually lives, and what "stops being valid" means mechanically, is the subject of `The stack and function calls`. For now, the rule you need is narrower: never assume a variable's storage still holds anything meaningful once its block has ended.
 
-### Wrong model: the inner `x` changes the outer `x`
+### Wrong model: The inner `x` changes the outer `x`
 
 A common misreading of the trace above is that the second `printf` overwrites the outer variable, and the third line "changes it back" somehow.
 
-**What is actually true:** there were two variables the entire time, `x` in the outer block and a different `x` in the inner block, occupying different storage. The inner declaration does not touch the outer variable at all — it introduces a new name binding that happens to shadow the old one for as long as the inner block is executing. The outer `x` was never `2`. It was `1` the whole time; the program simply had no way to say so while the inner name was in effect.
+**What is actually true:** There were two variables the entire time, `x` in the outer block and a different `x` in the inner block, occupying different storage. The inner declaration does not touch the outer variable at all — it introduces a new name binding that happens to shadow the old one for as long as the inner block is executing. The outer `x` was never `2`. It was `1` the whole time; the program simply had no way to say so while the inner name was in effect.
 
 ## 5. Assignment is a write to an address
 
@@ -160,9 +160,9 @@ printf("%d\n", n);
 
 This fragment is not compiled here, deliberately: reading a variable before it has been assigned is undefined behaviour in C, and there is no fixed value to check the output against. Compilers will often warn about exactly this when they can prove it statically, which is one honest way to catch the mistake before running anything.
 
-### Wrong model: an uninitialised variable is zero
+### Wrong model: An uninitialised variable is zero
 
-**What is actually true:** an automatic variable's initial contents are whatever bytes were already at its address; nothing zeroes them for you. It might print `0` by coincidence, on a given run, on a given machine, and print something else entirely the next time the program starts, or after an unrelated change elsewhere shifts what used to occupy that memory. `The machine model`'s answer to "what does a byte holding `00` mean" applies here without modification: a byte, or four of them, always holds some pattern; nothing marks a variable's storage as empty. Always assign a variable before reading it.
+**What is actually true:** An automatic variable's initial contents are whatever bytes were already at its address; nothing zeroes them for you. It might print `0` by coincidence, on a given run, on a given machine, and print something else entirely the next time the program starts, or after an unrelated change elsewhere shifts what used to occupy that memory. `The machine model`'s answer to "what does a byte holding `00` mean" applies here without modification: a byte, or four of them, always holds some pattern; nothing marks a variable's storage as empty. Always assign a variable before reading it.
 
 ## Exercises
 

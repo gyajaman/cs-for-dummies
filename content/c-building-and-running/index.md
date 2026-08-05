@@ -109,11 +109,11 @@ Running the executable makes the operating system load its instructions into mem
 
 Run `./hello` three times and you get three separate processes, one after another, each with its own copy of the program's memory, even though there is only ever one `hello` file on disk.
 
-### Wrong model: the source file is the program
+### Wrong model: The source file is the program
 
 A natural shorthand is to say the `.c` file "is" the program, since it is the thing you write and read.
 
-**What is actually true:** the source file is a description the compiler reads once, at compile time, to produce the executable. What the CPU executes is the executable's bytes, loaded into a process's memory. Editing the source file after compiling changes nothing about a process already running, and changes nothing about the executable file either, until you compile again. A program that has been running for an hour is completely unaffected by whatever you do to its source file in the meantime.
+**What is actually true:** The source file is a description the compiler reads once, at compile time, to produce the executable. What the CPU executes is the executable's bytes, loaded into a process's memory. Editing the source file after compiling changes nothing about a process already running, and changes nothing about the executable file either, until you compile again. A program that has been running for an hour is completely unaffected by whatever you do to its source file in the meantime.
 
 ## 6. Reading a first compiler error
 
@@ -142,9 +142,9 @@ The exact wording and column vary by compiler and version, but the shape is alwa
 
 Fix the missing semicolon and it compiles clean.
 
-### Wrong model: if it compiles, it works
+### Wrong model: If it compiles, it works
 
-**What is actually true:** compiling checks only whether your text describes a legal sequence of C constructs — correct syntax, and, where the compiler can determine it, correct types. It checks nothing about whether the program does what you intended. A program that compiles with zero errors and zero warnings under `-Wall -Wextra -std=c17` can still print the wrong answer, corrupt its own memory, or loop forever; none of that is a compile-time property. Compiling successfully is necessary to have a program at all. It is not evidence the program is correct.
+**What is actually true:** Compiling checks only whether your text describes a legal sequence of C constructs — correct syntax, and, where the compiler can determine it, correct types. It checks nothing about whether the program does what you intended. A program that compiles with zero errors and zero warnings under `-Wall -Wextra -std=c17` can still print the wrong answer, corrupt its own memory, or loop forever; none of that is a compile-time property. Compiling successfully is necessary to have a program at all. It is not evidence the program is correct.
 
 ## 7. Exit status
 

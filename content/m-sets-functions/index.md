@@ -18,7 +18,7 @@ $A \subseteq B$ means every element of $A$ is also an element of $B$ — $A$ is 
 
 ### Wrong model: $\in$ and $\subseteq$ mean the same thing
 
-**What is actually true:** they relate different kinds of things. $\in$ relates an *element* to a set: is this single thing a member? $\subseteq$ relates two *sets*: is every member of one also a member of the other? $1 \in \{1, 2, 3\}$ is a true statement about a number and a set. $\{1\} \subseteq \{1, 2, 3\}$ is a true statement about two sets. $\{1\} \in \{1, 2, 3\}$ is false — the elements of $\{1, 2, 3\}$ are the numbers $1$, $2$, and $3$, not the set $\{1\}$ — and $1 \subseteq \{1, 2, 3\}$ does not even type-check, since $1$ is not a set at all. Keeping straight which symbol you mean is not a stylistic preference.
+**What is actually true:** They relate different kinds of things. $\in$ relates an *element* to a set: is this single thing a member? $\subseteq$ relates two *sets*: is every member of one also a member of the other? $1 \in \{1, 2, 3\}$ is a true statement about a number and a set. $\{1\} \subseteq \{1, 2, 3\}$ is a true statement about two sets. $\{1\} \in \{1, 2, 3\}$ is false — the elements of $\{1, 2, 3\}$ are the numbers $1$, $2$, and $3$, not the set $\{1\}$ — and $1 \subseteq \{1, 2, 3\}$ does not even type-check, since $1$ is not a set at all. Keeping straight which symbol you mean is not a stylistic preference.
 
 ## 3. Union, intersection, difference
 
@@ -60,9 +60,9 @@ A function that is both injective and surjective is **bijective**: $h : A \to \{
 
 A function can also be neither: $k : A \to A$ given by $k(1) = 1, k(2) = 1, k(3) = 1$ is not injective, since $1$ and $2$ share an output, and not surjective, since $2$ and $3$ are never produced.
 
-### Wrong model: every function is either injective or surjective
+### Wrong model: Every function is either injective or surjective
 
-**What is actually true:** the two properties are independent, and section 8's four examples already cover every combination: $f$ injective but not surjective, $g$ surjective but not injective, $h$ both, $k$ neither. Knowing a function fails one of these properties says nothing at all about whether it has the other.
+**What is actually true:** The two properties are independent, and section 8's four examples already cover every combination: $f$ injective but not surjective, $g$ surjective but not injective, $h$ both, $k$ neither. Knowing a function fails one of these properties says nothing at all about whether it has the other.
 
 ## 9. Composition
 

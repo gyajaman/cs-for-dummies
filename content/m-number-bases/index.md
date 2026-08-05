@@ -55,7 +55,7 @@ $$
 
 Reading the remainders from the last line to the first gives $101011_2$. Check it against section 1's formula: $1 \times 32 + 0 \times 16 + 1 \times 8 + 0 \times 4 + 1 \times 2 + 1 \times 1 = 32 + 8 + 2 + 1 = 43$. The same procedure, dividing by $16$ instead of $2$ and writing each remainder as a hex digit, converts decimal to hexadecimal.
 
-### Wrong model: converting a number to another base changes the number
+### Wrong model: Converting a number to another base changes the number
 
 **What is actually true:** $101011_2$, $43$, and $2b_{16}$ are three different *spellings* of the exact same quantity — the same way "eleven," "XI," and "$11$" all name one value using unrelated notations. Conversion changes which digits are written down and what base they are read in; it does not touch the quantity itself. Nothing is computed on or transformed in the everyday arithmetic sense — the value was always $43$, before, during, and after choosing how to write it.
 
@@ -69,9 +69,9 @@ $$11111111_2 = ff_{16} = 15 \times 16 + 15 = 255$$
 
 This is the entire reason hexadecimal is used constantly for byte values and decimal is not: in decimal, a byte's value needs one, two, or three digits depending on the value, an invisible, value-dependent boundary. In hexadecimal, it is always exactly two, every time, for every byte, which is why memory is written in hex throughout this book rather than in decimal.
 
-### Wrong model: a digit string means the same thing regardless of which base it is read in
+### Wrong model: A digit string means the same thing regardless of which base it is read in
 
-**What is actually true:** the string "$11$" is not a fixed quantity waiting to be discovered — it means whatever section 1's formula says it means, once you know $b$. Read as binary, $11_2 = 1 \times 2 + 1 = 3$. Read as decimal, $11_{10} = 11$. Read as hexadecimal, $11_{16} = 1 \times 16 + 1 = 17$. Three different values, one identical string of digits; the base is not decoration on the number, it is part of what makes the digits mean anything at all.
+**What is actually true:** The string "$11$" is not a fixed quantity waiting to be discovered — it means whatever section 1's formula says it means, once you know $b$. Read as binary, $11_2 = 1 \times 2 + 1 = 3$. Read as decimal, $11_{10} = 11$. Read as hexadecimal, $11_{16} = 1 \times 16 + 1 = 17$. Three different values, one identical string of digits; the base is not decoration on the number, it is part of what makes the digits mean anything at all.
 
 ## 6. Powers of two and the $2^{10} \approx 10^3$ approximation
 

@@ -393,6 +393,7 @@ body {
 .misconception strong:first-child {
   display: inline-block;
   margin-bottom: var(--space-3);
+  margin-right: var(--space-2);
   padding: 3px 11px;
   border: 2px solid var(--danger);
   border-radius: 2px;

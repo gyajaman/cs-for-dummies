@@ -78,9 +78,9 @@ second's b is at {{ANY}}
 
 Unlike section 1's example, `first` has completely finished, its frame already popped, before `second` is ever called — the two calls do not overlap. Compare the two printed addresses yourself: on many machines, including the one this was written on, they come out identical. "Local variable storage stops existing when its function returns" was always figurative — the bytes are not erased, nothing reaches in and clears them — what actually happens is narrower and more mechanical: the space stops being reserved, and the very next thing that needs stack space, here `second`'s own frame, is free to use exactly the same addresses. Reading `a` through its old name after `first` has returned would be undefined behaviour, but not because the bytes vanished — because nothing protects them from being claimed by whatever runs next.
 
-### Wrong model: a local variable's storage is cleared once its function returns
+### Wrong model: A local variable's storage is cleared once its function returns
 
-**What is actually true:** returning pops the frame, which means the memory is no longer reserved for that variable — it does not mean the memory is zeroed, wiped, or otherwise reset. Whatever bit pattern was last written there stays exactly as it was until something else, typically the very next call's frame, writes over it. This is the same fact `Variables, types, and memory addresses` stated about uninitialised variables in general, now with a specific, common source: a variable's leftover bytes are frequently the leftovers of some previous call's locals, not a fresh, blank slate.
+**What is actually true:** Returning pops the frame, which means the memory is no longer reserved for that variable — it does not mean the memory is zeroed, wiped, or otherwise reset. Whatever bit pattern was last written there stays exactly as it was until something else, typically the very next call's frame, writes over it. This is the same fact `Variables, types, and memory addresses` stated about uninitialised variables in general, now with a specific, common source: a variable's leftover bytes are frequently the leftovers of some previous call's locals, not a fresh, blank slate.
 
 ## 4. Call depth and stack overflow
 
@@ -90,9 +90,9 @@ The stack has a fixed maximum size, decided before your program starts running, 
 
 Once a function returns, its frame is popped, whether or not anyone kept a copy of an address that pointed into it. Handing the caller the address of one of your own local variables — a possibility only once `Pointers` gives you the syntax to write it — hands back an address whose frame may be reused by literally the next function call, including one as innocuous as `printf` itself.
 
-### Wrong model: returning the address of a local variable is safe if the caller uses it immediately
+### Wrong model: Returning the address of a local variable is safe if the caller uses it immediately
 
-**What is actually true:** there is no safe window, not even an instant one. The frame is popped the moment `return` executes, before control has even reached the caller; "immediately" does not happen before the pop, it happens after. Section 3 already showed the next call is a strong candidate to claim exactly that freed space for its own frame — and evaluating almost anything with the returned address, including passing it to another function to print or use it, is itself a call, which is precisely the kind of event likely to overwrite it first.
+**What is actually true:** There is no safe window, not even an instant one. The frame is popped the moment `return` executes, before control has even reached the caller; "immediately" does not happen before the pop, it happens after. Section 3 already showed the next call is a strong candidate to claim exactly that freed space for its own frame — and evaluating almost anything with the returned address, including passing it to another function to print or use it, is itself a call, which is precisely the kind of event likely to overwrite it first.
 
 ## Exercises
 

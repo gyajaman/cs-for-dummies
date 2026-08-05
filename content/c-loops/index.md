@@ -153,9 +153,9 @@ using i <= 5:
 
 Both loops compile without complaint and both run without crashing — an off-by-one error is a logic mistake, not a syntax mistake, and the compiler has no way to know which bound you meant. The first loop stops as soon as `i` reaches `5`, because `5 < 5` is false, so `5` itself is never printed. The fix is not "use `<=` instead of `<`" as a blanket rule — `<` is exactly correct when counting a number of items rather than counting up to an inclusive value — the fix is checking, every time, whether the boundary you wrote actually matches the boundary you meant.
 
-### Wrong model: the loop bound in `i < n` and `i <= n` differ by an unimportant detail
+### Wrong model: The loop bound in `i < n` and `i <= n` differ by an unimportant detail
 
-**What is actually true:** they differ by exactly one iteration, and which one is correct depends entirely on what the loop is counting. `for (int i = 0; i < 5; i++)` runs `5` times, visiting `0, 1, 2, 3, 4` — correct for touching each of `5` things once. `for (int i = 1; i <= 5; i++)` also runs `5` times, visiting `1, 2, 3, 4, 5` — correct for counting from `1` up to and including `5`. Neither form is the generally safe one; picking the wrong one for what you are actually counting is precisely what an off-by-one error is.
+**What is actually true:** They differ by exactly one iteration, and which one is correct depends entirely on what the loop is counting. `for (int i = 0; i < 5; i++)` runs `5` times, visiting `0, 1, 2, 3, 4` — correct for touching each of `5` things once. `for (int i = 1; i <= 5; i++)` also runs `5` times, visiting `1, 2, 3, 4, 5` — correct for counting from `1` up to and including `5`. Neither form is the generally safe one; picking the wrong one for what you are actually counting is precisely what an off-by-one error is.
 
 ## 6. Nested loops
 

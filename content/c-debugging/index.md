@@ -120,11 +120,11 @@ Section 2 did not start by staring at `midpoint` until an answer appeared — it
 
 When a failure only shows up on a large or complicated input, the same discipline applies to the input itself: cut it down, a piece at a time, checking after each cut whether the failure still happens. An input you have shrunk as far as it will go while still triggering the bug is almost always faster to reason about than the original — often small enough that the cause is visible on inspection, with no debugger needed at all.
 
-### Wrong model: a compiler warning that does not stop compilation can be safely ignored
+### Wrong model: A compiler warning that does not stop compilation can be safely ignored
 
 **What is actually true:** `-Wall -Wextra`, part of every compile command in this book since `Building and running a C program`, exists precisely to report constructs that are legal C and frequently wrong anyway. A warning is not a lesser kind of error to defer; it is often the fastest hypothesis you will ever get handed for free, pointing at the exact line worth suspecting first, before you have written a single instrumentation `printf` or opened `gdb` at all.
 
-### Wrong model: the first suspicious-looking line is the one causing the bug
+### Wrong model: The first suspicious-looking line is the one causing the bug
 
 **What is actually true:** `The machine model` already warned that a symptom can surface far from its cause. A value that looks wrong where you noticed it may have been computed correctly there and gone wrong earlier, or may be correct there and only look wrong because something downstream misuses it. Fixing the first line that looks off, without first confirming a hypothesis about where the actual divergence happens, risks changing something that was never broken while the real cause stays exactly where it was.
 

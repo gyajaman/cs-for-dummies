@@ -66,9 +66,9 @@ These three files are not compiled individually by the harness in this book — 
 
 `#ifndef POINT_H` / `#define POINT_H` / `#endif` around `point.h`'s contents is an **include guard**. If anything ever causes `point.h` to be `#include`d twice within the same translation unit — directly, or indirectly through two other headers that each include it — the second `#include` finds `POINT_H` already defined and skips straight to `#endif`, seeing nothing the second time. Every header you write should have one.
 
-### Wrong model: including a header twice is harmless if both copies are identical
+### Wrong model: Including a header twice is harmless if both copies are identical
 
-**What is actually true:** the compiler does not check whether two copies of a definition agree before objecting to them — it objects to seeing `struct point` defined twice in one translation unit at all, word-for-word identical or not. Section 6 shows exactly this error, triggered directly rather than through a missing include guard; the guard's entire job is making sure the compiler never sees the second copy in the first place.
+**What is actually true:** The compiler does not check whether two copies of a definition agree before objecting to them — it objects to seeing `struct point` defined twice in one translation unit at all, word-for-word identical or not. Section 6 shows exactly this error, triggered directly rather than through a missing include guard; the guard's entire job is making sure the compiler never sees the second copy in the first place.
 
 ## 4. extern
 
@@ -154,9 +154,9 @@ int main(void)
 
 This one fails during compiling itself, before linking is ever reached — a genuine compiler error, "redefinition of `point`," from writing the same type twice in one file. This is precisely what an un-guarded header, included twice, would hand the compiler.
 
-### Wrong model: a program that compiles without error must have every function it calls properly defined
+### Wrong model: A program that compiles without error must have every function it calls properly defined
 
-**What is actually true:** compiling checks only that every call matches a known declaration — a prototype is sufficient, whether or not a definition exists anywhere in the program. Whether a definition actually exists is checked afterward, by the linker, as a separate stage with its own separate class of error. `undefinedref.c` above compiles cleanly and still fails to become a working program.
+**What is actually true:** Compiling checks only that every call matches a known declaration — a prototype is sufficient, whether or not a definition exists anywhere in the program. Whether a definition actually exists is checked afterward, by the linker, as a separate stage with its own separate class of error. `undefinedref.c` above compiles cleanly and still fails to become a working program.
 
 ## 7. A minimal Makefile
 

@@ -137,9 +137,9 @@ The **converse**, $q \to p$, generally is not:
 
 The second row already breaks the match: $p \to q$ is false there, $q \to p$ is true. "If a shape is a square, then it has four sides" is true; its converse, "if a shape has four sides, then it is a square," is false — a rectangle has four sides and is not a square. Swapping which side implies which is not a harmless rewording.
 
-### Wrong model: the converse of a true implication is also true
+### Wrong model: The converse of a true implication is also true
 
-**What is actually true:** section 8's own truth table shows the converse disagreeing with the original on an entire row, and the square example makes it concrete: truth of $p \to q$ says nothing whatsoever about $q \to p$. What *is* always equivalent to $p \to q$ is its contrapositive, $\lnot q \to \lnot p$ — a fact worth keeping distinct from the converse specifically because the two are so easy to mix up, and only one of them is safe to substitute for the original.
+**What is actually true:** Section 8's own truth table shows the converse disagreeing with the original on an entire row, and the square example makes it concrete: truth of $p \to q$ says nothing whatsoever about $q \to p$. What *is* always equivalent to $p \to q$ is its contrapositive, $\lnot q \to \lnot p$ — a fact worth keeping distinct from the converse specifically because the two are so easy to mix up, and only one of them is safe to substitute for the original.
 
 ## Exercises
 

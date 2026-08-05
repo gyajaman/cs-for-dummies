@@ -49,9 +49,16 @@ by KaTeX.
 
 **Misconceptions** use a fixed two-part form, always in this order:
 
-    ### Wrong model: <the incorrect belief, stated plainly>
-    **What is actually true:** <correction, with a concrete artefact — output, byte
+    ### Wrong model: <The incorrect belief, stated plainly>
+    **What is actually true:** <Correction, with a concrete artefact — output, byte
     values, an address — not a general warning>
+
+The word immediately after `Wrong model:` and after `**What is actually true:**` is
+capitalised, the same as the start of any sentence — this is prose following a label,
+not a run-on clause. The one exception: if that word is a backticked code span or `$`
+LaTeX math rather than plain English (` ### Wrong model: `sizeof` on an array... `),
+leave it exactly as written — do not alter an identifier's or expression's actual
+casing to force a capital.
 
 **Article references**, forward or backward, name the other node's exact title in
 backticks — `` `Exact Node Title` `` — and the build hyperlinks any backticked span that
