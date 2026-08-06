@@ -165,8 +165,11 @@ int main(void)
     *p = 42;
     printf("before free, *p is %d\n", *p);
 
+    char address_text[32];
+    snprintf(address_text, sizeof address_text, "%p", (void *)p);
+
     free(p);
-    printf("p itself still holds %p after free\n", (void *)p);
+    printf("p's address was %s; free does not change that value\n", address_text);
 
     return 0;
 }
@@ -174,14 +177,14 @@ int main(void)
 
 ```output
 before free, *p is 42
-p itself still holds {{ANY}} after free
+p's address was {{ANY}}; free does not change that value
 ```
 
-`free(p)` returns the memory `p` points to back to the heap, making it available for a future allocation to reuse — the heap equivalent of a stack frame being popped. What `free` does not do is touch `p` itself: `p` is an ordinary variable, and `free` has no way to reach into it and change what address it holds. The printed address after `free` is identical to the one before it; `p` is now a **dangling pointer**, an address that no longer refers to memory you own, and dereferencing it is undefined behaviour, exactly as dereferencing any other invalid pointer would be. `Memory errors: leaks, dangling pointers, use-after-free` covers the full range of mistakes this enables; this article stops at the mechanical fact that `free` frees the memory and nothing else.
+`free(p)` returns the memory `p` points to back to the heap, making it available for a future allocation to reuse — the heap equivalent of a stack frame being popped. What `free` does not do is touch `p` itself: `p` is an ordinary variable, and `free` has no way to reach into it and change what address it holds. `address_text`, filled in before the call, records exactly what `p` held; `p` itself is now a **dangling pointer**, an address that no longer refers to memory you own, and both reading `p` directly and dereferencing it after `free` are undefined behaviour, exactly as touching any other invalid pointer would be — writing its value out to text first, as above, is the only safe way to inspect what it used to hold. `Memory errors: leaks, dangling pointers, use-after-free` covers the full range of mistakes this enables; this article stops at the mechanical fact that `free` frees the memory and nothing else.
 
 ### Wrong model: `free(p)` sets `p` to `NULL` automatically
 
-**What is actually true:** Section 5's own output shows `p` printing the identical address both before and after `free` — nothing about calling `free` reaches back into the caller's variable. `free` is a function taking `p`'s value as a plain, pass-by-value argument, in exactly `Functions, parameters, and pass-by-value`'s sense: it receives a copy of the address, frees the memory that address names, and has no route back to the original variable at all, the same limitation any function has toward any parameter it did not receive through an explicit pointer to that variable itself. Setting `p = NULL;` after `free(p);`, by hand, is a real and common discipline for making an accidental later dereference at least detectable — but it is something you do, not something `free` does for you.
+**What is actually true:** Section 5's own output shows the address recorded from `p` just before `free` is unchanged by the call — nothing about calling `free` reaches back into the caller's variable. `free` is a function taking `p`'s value as a plain, pass-by-value argument, in exactly `Functions, parameters, and pass-by-value`'s sense: it receives a copy of the address, frees the memory that address names, and has no route back to the original variable at all, the same limitation any function has toward any parameter it did not receive through an explicit pointer to that variable itself. Setting `p = NULL;` after `free(p);`, by hand, is a real and common discipline for making an accidental later dereference at least detectable — but it is something you do, not something `free` does for you.
 
 ## 6. `realloc`
 
@@ -303,7 +306,7 @@ squares[4] is 16
 
 4. `malloc` makes no guarantee about the contents of the memory it returns — it is uninitialised, leftover bytes, following `Variables, types, and memory addresses`' general rule. `calloc` guarantees the memory is entirely zeroed.
 
-5. Section 5 showed `p` printing the identical address both before and after `free(p);` — `free` receives only a copy of `p`'s value, by ordinary pass-by-value, and has no route back to the variable `p` itself to modify it. Since `free` cannot reach `p`, the only way `p` ends up `NULL` afterward is if the programmer's own code sets it there explicitly.
+5. Section 5 showed that the address saved out of `p` just before `free(p);` matches what `p` held beforehand — `free` receives only a copy of `p`'s value, by ordinary pass-by-value, and has no route back to the variable `p` itself to modify it. Since `free` cannot reach `p`, the only way `p` ends up `NULL` afterward is if the programmer's own code sets it there explicitly.
 
 6. Because `realloc` can fail and return `NULL`, and on failure the original block pointed to by `a` is still valid and still needs to be freed. Assigning `a = realloc(a, ...)` directly would, on failure, overwrite `a` with `NULL`, losing the only pointer to the still-valid original allocation and making it impossible to free.
 
