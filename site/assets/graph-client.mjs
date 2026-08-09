@@ -32,6 +32,7 @@ const panelCloseBtn = document.getElementById("panel-close-btn");
 
 const view = { x: 0, y: 0, scale: 1 };
 let activeNodeId = null;
+const disabledTracks = new Set();
 
 render();
 // Deferred a frame: reading the viewport's rect synchronously here can race
@@ -47,6 +48,7 @@ initPanZoom();
 initSearch();
 initPanel();
 initHoverFocus();
+initLegend();
 
 function render() {
   nodesLayer.innerHTML = data.nodes.map(nodeMarkup).join("");
@@ -141,11 +143,55 @@ function renderLegend() {
     tracks
       .map(
         (t) =>
-          `<div class="legend-row"><span class="legend-swatch" style="background:var(--track-${t.id})"></span>${t.label}</div>`
+          `<div class="legend-row legend-row-toggle" data-track="${t.id}" role="button" tabindex="0" aria-pressed="true"><span class="legend-swatch" style="background:var(--track-${t.id})"></span>${t.label}</div>`
       )
       .join("") +
     `<div class="legend-row"><span class="legend-swatch" style="background:var(--accent)"></span>Baseline fluency</div>` +
     `<div class="legend-row"><span class="legend-swatch outline"></span>No article yet</div>`;
+}
+
+// ---------- legend track filter ----------
+// Clicking a track row in the legend hides every node in that track, plus
+// any edge touching a hidden node, so a dense graph can be narrowed down to
+// one or two tracks at a time.
+
+function initLegend() {
+  legend.addEventListener("click", (e) => {
+    const row = e.target.closest(".legend-row-toggle");
+    if (!row) return;
+    toggleTrack(row.dataset.track);
+  });
+
+  legend.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const row = e.target.closest(".legend-row-toggle");
+    if (!row) return;
+    e.preventDefault();
+    toggleTrack(row.dataset.track);
+  });
+}
+
+function toggleTrack(track) {
+  if (disabledTracks.has(track)) disabledTracks.delete(track);
+  else disabledTracks.add(track);
+  applyTrackFilter();
+}
+
+function applyTrackFilter() {
+  nodesLayer.querySelectorAll(".node").forEach((el) => {
+    const node = byId.get(el.dataset.id);
+    el.classList.toggle("track-hidden", disabledTracks.has(node.track));
+  });
+  edgesLayer.querySelectorAll(".edge").forEach((el) => {
+    const from = byId.get(el.dataset.from);
+    const to = byId.get(el.dataset.to);
+    el.classList.toggle("track-hidden", disabledTracks.has(from.track) || disabledTracks.has(to.track));
+  });
+  legend.querySelectorAll(".legend-row-toggle").forEach((row) => {
+    const off = disabledTracks.has(row.dataset.track);
+    row.classList.toggle("off", off);
+    row.setAttribute("aria-pressed", String(!off));
+  });
 }
 
 // ---------- pan / zoom ----------

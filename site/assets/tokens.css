@@ -169,15 +169,22 @@ button {
 }
 
 /* shared icon button (theme toggle, graph zoom controls, panel close) —
-   used on both the graph page and article pages */
+   used on both the graph page and article pages. Chamfered top-left
+   corner echoes the graph node cards (see CARD_CHAMFER in
+   graph-client.mjs) rather than a plain circle. clip-path cuts the corner
+   but draws no stroke of its own, so the border is faked with a ::before
+   sitting 1px behind and 1px larger, clipped to a matching but wider
+   chamfer so it peeks out as a ring — including along the diagonal. */
 .icon-btn {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--border-strong);
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+  border: none;
   background: radial-gradient(
     circle at 35% 30%,
     color-mix(in srgb, var(--bg-panel) 100%, white 6%),
@@ -185,15 +192,27 @@ button {
   );
   color: var(--text-muted);
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast),
-    transform var(--transition-fast);
+  filter: drop-shadow(var(--shadow-sm));
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.icon-btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: var(--border-strong);
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+  transition: background var(--transition-fast);
 }
 
 .icon-btn:hover {
   background: var(--bg-hover);
   color: var(--accent);
-  border-color: var(--accent);
+}
+
+.icon-btn:hover::before {
+  background: var(--accent);
 }
 
 .icon-btn:active {
