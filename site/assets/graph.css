@@ -117,7 +117,7 @@ body {
 }
 
 .zoom-group .icon-btn {
-  filter: none;
+  box-shadow: none;
 }
 
 .zoom-group .icon-btn::before {
@@ -297,9 +297,10 @@ body {
 /* ---------- legend ---------- */
 
 /* Same chamfered-corner-with-border shape as the graph node cards and the
-   toolbar icon buttons: clip-path cuts the corner, and a ::before sitting
-   1px behind and 1px larger (clipped to a wider matching chamfer) peeks
-   out as the border ring. */
+   toolbar icon buttons: ::before/::after fake the border (see them below
+   for why). .legend itself carries no clip-path of its own — a clip-path
+   on the parent clips its overflowing children too, which cropped away
+   all but a sliver of the border pseudo-element's outward bleed. */
 .legend {
   position: absolute;
   left: var(--space-4);
@@ -310,21 +311,37 @@ body {
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: var(--bg-panel);
-  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);
-  filter: drop-shadow(var(--shadow-md));
+  background: none;
+  box-shadow: var(--shadow-md);
   font-family: var(--font-display);
   font-size: var(--text-xs);
   color: var(--text-muted);
 }
 
-.legend::before {
+.legend::before,
+.legend::after {
   content: "";
   position: absolute;
-  inset: -1px;
   z-index: -1;
+}
+
+.legend::before {
+  inset: -2px;
   background: var(--border-strong);
-  clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%, 0 16px);
+  /* A 45° chamfer needs N·(2−√2), not 2N, of extra offset to read as a
+     border of the same visual width as the straight edges — the naive
+     2N doubles up and pushes this cut past the face's own, hiding the
+     border behind it. (A prior attempt to pad this past the exact match
+     for antialiasing slack moved the value the wrong way and made the
+     diagonal thinner instead — the offset shrinks the covered area as it
+     grows, it doesn't add to it.) */
+  clip-path: polygon(15.17px 0, 100% 0, 100% 100%, 0 100%, 0 15.17px);
+}
+
+.legend::after {
+  inset: 0;
+  background: var(--bg-panel);
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);
 }
 
 .legend-row {
@@ -336,19 +353,16 @@ body {
 .legend-row-toggle {
   cursor: pointer;
   user-select: none;
-  padding: 2px 4px;
-  margin: -2px -4px;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition-fast), opacity var(--transition-fast);
+  transition: opacity var(--transition-fast);
 }
 
 .legend-row-toggle:hover {
-  background: var(--bg-hover);
+  color: var(--text);
 }
 
 .legend-row-toggle:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
 .legend-row-toggle.off {

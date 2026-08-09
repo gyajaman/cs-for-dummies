@@ -171,15 +171,17 @@ button {
 /* shared icon button (theme toggle, graph zoom controls, panel close) —
    used on both the graph page and article pages. Chamfered top-left
    corner echoes the graph node cards (see CARD_CHAMFER in
-   graph-client.mjs) rather than a plain circle. clip-path cuts the corner
-   but draws no stroke of its own, so the border is faked with two
-   pseudo-elements: ::before is a 1px-larger chamfer in the border color,
-   ::after is the actual face (inset:0) painted on top of it. Both carry
-   z-index:-1 so they land, in DOM order, below the icon glyph but above
-   the button's own (empty) background — negative z-index paints *after*
-   an element's own background in the stacking order, not before it, so
-   putting the face color on the button itself would let it eclipse the
-   border layer entirely on hover. */
+   graph-client.mjs) rather than a plain circle. The border is faked with
+   two pseudo-elements: ::before is a 2px-larger chamfer in the border
+   color, ::after is the actual face (inset:0) painted on top of it. Both
+   carry z-index:-1 so they land, in DOM order, below the icon glyph but
+   above the button's own (empty) background — negative z-index paints
+   *after* an element's own background in the stacking order, not before
+   it, so putting the face color on the button itself would let it
+   eclipse the border layer entirely on hover. The button itself carries
+   no clip-path of its own — a clip-path on the parent clips its
+   overflowing children too, which would crop away the border's outward
+   bleed on most sides. */
 .icon-btn {
   position: relative;
   isolation: isolate;
@@ -188,12 +190,11 @@ button {
   justify-content: center;
   width: 34px;
   height: 34px;
-  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
   border: none;
   background: none;
   color: var(--text-muted);
   cursor: pointer;
-  filter: drop-shadow(var(--shadow-sm));
+  box-shadow: var(--shadow-sm);
   transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -206,18 +207,21 @@ button {
 }
 
 .icon-btn::before {
-  inset: -1px;
+  inset: -2px;
   background: var(--border-strong);
-  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+  /* A 45° chamfer needs N·(2−√2), not 2N, of extra offset to read as a
+     border of the same visual width as the straight edges — the naive
+     2N doubles up and pushes this cut past the face's own, hiding the
+     border behind it. (A prior attempt to pad this past the exact match
+     for antialiasing slack moved the value the wrong way and made the
+     diagonal thinner instead — the offset shrinks the covered area as it
+     grows, it doesn't add to it.) */
+  clip-path: polygon(11.17px 0, 100% 0, 100% 100%, 0 100%, 0 11.17px);
 }
 
 .icon-btn::after {
   inset: 0;
-  background: radial-gradient(
-    circle at 35% 30%,
-    color-mix(in srgb, var(--bg-panel) 100%, white 6%),
-    var(--bg-panel) 70%
-  );
+  background: var(--bg-panel);
   clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
 }
 
