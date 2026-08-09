@@ -146,6 +146,21 @@
   box-sizing: border-box;
 }
 
+/* Default theme-switch transition for every element: anything that
+   doesn't declare its own `transition` fades its themed colors instead
+   of snapping. Elements with their own transition (hover states, pan/
+   zoom, etc.) override this outright rather than merging with it, so
+   those are given the same color properties explicitly alongside
+   whatever else they animate — see icon-btn, .node path.card,
+   .search-box input, .chip, and others. */
+*,
+*::before,
+*::after {
+  transition: background-color var(--transition-base), color var(--transition-base),
+    border-color var(--transition-base), box-shadow var(--transition-base), fill var(--transition-base),
+    stroke var(--transition-base);
+}
+
 html,
 body {
   margin: 0;
@@ -195,7 +210,7 @@ button {
   color: var(--text-muted);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: color var(--transition-fast), transform var(--transition-fast);
+  transition: color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
 .icon-btn::before,
