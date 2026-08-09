@@ -117,12 +117,15 @@ body {
 }
 
 .zoom-group .icon-btn {
-  background: var(--bg-panel);
   filter: none;
 }
 
 .zoom-group .icon-btn::before {
   background: transparent;
+}
+
+.zoom-group .icon-btn::after {
+  background: var(--bg-panel);
 }
 
 .zoom-group .icon-btn:hover::before {
@@ -208,16 +211,6 @@ body {
   stroke: var(--bg-panel);
   stroke-width: 1.5;
   opacity: 0.9;
-}
-
-.node .floor-dot {
-  fill: var(--accent);
-  stroke: var(--bg-panel);
-  stroke-width: 1.2;
-}
-
-.node.no-article .floor-dot {
-  opacity: 0.45;
 }
 
 .node foreignObject {

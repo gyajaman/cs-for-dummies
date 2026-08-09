@@ -79,7 +79,6 @@ function main() {
 
   const graphData = {
     tracks: ["math", "c", "ds", "algo"],
-    fluencyFloor: graph.meta.fluency_floor,
     cardWidth: layout.cardWidth,
     cardHeight: layout.cardHeight,
     width: layout.width,

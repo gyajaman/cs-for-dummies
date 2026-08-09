@@ -172,9 +172,14 @@ button {
    used on both the graph page and article pages. Chamfered top-left
    corner echoes the graph node cards (see CARD_CHAMFER in
    graph-client.mjs) rather than a plain circle. clip-path cuts the corner
-   but draws no stroke of its own, so the border is faked with a ::before
-   sitting 1px behind and 1px larger, clipped to a matching but wider
-   chamfer so it peeks out as a ring — including along the diagonal. */
+   but draws no stroke of its own, so the border is faked with two
+   pseudo-elements: ::before is a 1px-larger chamfer in the border color,
+   ::after is the actual face (inset:0) painted on top of it. Both carry
+   z-index:-1 so they land, in DOM order, below the icon glyph but above
+   the button's own (empty) background — negative z-index paints *after*
+   an element's own background in the stacking order, not before it, so
+   putting the face color on the button itself would let it eclipse the
+   border layer entirely on hover. */
 .icon-btn {
   position: relative;
   isolation: isolate;
@@ -185,34 +190,47 @@ button {
   height: 34px;
   clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
   border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  filter: drop-shadow(var(--shadow-sm));
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.icon-btn::before,
+.icon-btn::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: background var(--transition-fast);
+}
+
+.icon-btn::before {
+  inset: -1px;
+  background: var(--border-strong);
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+}
+
+.icon-btn::after {
+  inset: 0;
   background: radial-gradient(
     circle at 35% 30%,
     color-mix(in srgb, var(--bg-panel) 100%, white 6%),
     var(--bg-panel) 70%
   );
-  color: var(--text-muted);
-  cursor: pointer;
-  filter: drop-shadow(var(--shadow-sm));
-  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-
-.icon-btn::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  background: var(--border-strong);
-  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
-  transition: background var(--transition-fast);
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
 }
 
 .icon-btn:hover {
-  background: var(--bg-hover);
   color: var(--accent);
 }
 
 .icon-btn:hover::before {
   background: var(--accent);
+}
+
+.icon-btn:hover::after {
+  background: var(--bg-hover);
 }
 
 .icon-btn:active {

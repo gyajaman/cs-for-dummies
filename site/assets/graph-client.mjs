@@ -65,10 +65,8 @@ function nodeMarkup(node) {
   if (!node.hasArticle) classes.push("no-article");
   if (node.optional) classes.push("optional");
 
-  const isFloor = data.fluencyFloor.includes(node.id);
   const metaParts = [node.track];
   if (node.optional) metaParts.push("optional");
-  if (isFloor) metaParts.push("baseline");
 
   const c = CARD_CHAMFER;
   const cardPath = `M ${c},0 L ${w},0 L ${w},${h} L 0,${h} L 0,${c} Z`;
@@ -80,7 +78,6 @@ function nodeMarkup(node) {
   // size, anchored to the bottom-right corner, closest (the track stamp)
   // to the corner.
   const cornerDots = [{ cls: "stamp" }];
-  if (isFloor) cornerDots.push({ cls: "floor-dot" });
   const dots = cornerDots
     .map((d, i) => `<circle class="${d.cls}" cx="${w - 13 - i * 14}" cy="${h - 13}" r="4.5"></circle>`)
     .join("");
@@ -145,9 +142,7 @@ function renderLegend() {
         (t) =>
           `<div class="legend-row legend-row-toggle" data-track="${t.id}" role="button" tabindex="0" aria-pressed="true"><span class="legend-swatch" style="background:var(--track-${t.id})"></span>${t.label}</div>`
       )
-      .join("") +
-    `<div class="legend-row"><span class="legend-swatch" style="background:var(--accent)"></span>Baseline fluency</div>` +
-    `<div class="legend-row"><span class="legend-swatch outline"></span>No article yet</div>`;
+      .join("") + `<div class="legend-row"><span class="legend-swatch outline"></span>No article yet</div>`;
 }
 
 // ---------- legend track filter ----------
