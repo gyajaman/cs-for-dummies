@@ -6,7 +6,7 @@ track: c
 
 # Multi-file programs, headers, and linking
 
-Every program in this book so far has been one file. Real programs are rarely one file for long: splitting code across several lets separate pieces be compiled, and understood, independently. Doing that honestly requires taking `Building and running a C program`'s compile-then-run cycle apart further than "the toolchain as a black box" needed to — there is a whole stage between compiling and running that a single-file program never exposes.
+Every program on this website so far has been one file. Real programs are rarely one file for long: splitting code across several lets separate pieces be compiled, and understood, independently. Doing that honestly requires taking `Building and running a C program`'s compile-then-run cycle apart further than "the toolchain as a black box" needed to — there is a whole stage between compiling and running that a single-file program never exposes.
 
 ## 1. Translation units
 
@@ -60,7 +60,7 @@ int main(void)
 }
 ```
 
-These three files are not compiled individually by the harness in this book — they are a real, complete, three-file project, shown as three separate excerpts because that is what a multi-file project actually looks like. `point.h` declares; `point.c` defines; `main.c` only ever sees the declaration, through `#include "point.h"`, and that is enough for it to call both `point_new` and `point_print` correctly.
+These three files are not compiled individually by the harness on this website — they are a real, complete, three-file project, shown as three separate excerpts because that is what a multi-file project actually looks like. `point.h` declares; `point.c` defines; `main.c` only ever sees the declaration, through `#include "point.h"`, and that is enough for it to call both `point_new` and `point_print` correctly.
 
 ## 3. Header files and include guards
 
@@ -165,7 +165,7 @@ prog: point.c main.c
 	gcc -Wall -Wextra -std=c17 -o prog point.c main.c
 ```
 
-A rule with `make` names what it builds, `prog`; what it depends on, `point.c` and `main.c`; and, on the indented line beneath, the exact command that builds it — the same `gcc` invocation you would type by hand, just saved under a name you can rerun with `make` instead of retyping. This is the smallest useful Makefile; real ones grow rules per source file so `make` only recompiles what actually changed, a refinement this book does not need yet.
+A rule with `make` names what it builds, `prog`; what it depends on, `point.c` and `main.c`; and, on the indented line beneath, the exact command that builds it — the same `gcc` invocation you would type by hand, just saved under a name you can rerun with `make` instead of retyping. This is the smallest useful Makefile; real ones grow rules per source file so `make` only recompiles what actually changed, a refinement this website does not need yet.
 
 ## Exercises
 

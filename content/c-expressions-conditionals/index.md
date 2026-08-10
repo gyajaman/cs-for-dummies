@@ -148,7 +148,7 @@ weekend
 
 `switch` compares `day` against each `case` label and jumps to the first one that matches. Stacking labels with nothing between them, as `case 6:` and `case 7:` are here, is the standard way to give several values the same body — execution falls from `case 6:` straight into `case 7:`'s code because there is no `break` between the labels themselves, only between complete bodies. `default` runs when nothing else matched; it does not have to be last, but writing it last reads best.
 
-The `break` at the end of each body matters more than it looks. Leave one out after a case that actually contains code, and execution keeps going into the next case's body regardless of whether its label matched — a real fallthrough, not the harmless label-stacking above. `-Wextra`, part of every compile command in this book, usually catches exactly this mistake and refuses to stay quiet about it.
+The `break` at the end of each body matters more than it looks. Leave one out after a case that actually contains code, and execution keeps going into the next case's body regardless of whether its label matched — a real fallthrough, not the harmless label-stacking above. `-Wextra`, part of every compile command on this website, usually catches exactly this mistake and refuses to stay quiet about it.
 
 ## 7. Short-circuit evaluation
 
@@ -197,7 +197,7 @@ This is not excluded here because it fails to compile — it does not. It is exc
 
 ### Wrong model: `if (x = 5)` tests whether `x` equals `5`
 
-**What is actually true:** `=` is assignment, not comparison, and an assignment is itself an expression — it evaluates to the value that was just assigned. `if (x = 5)` sets `x` to `5`, unconditionally, as a side effect of evaluating the condition, and then tests whether `5` is non-zero, which it always is. The branch runs on every single execution, regardless of what `x` held beforehand, and `x`'s old value is gone. The comparison you almost certainly meant is `==`, two characters, not one. Compilers commonly warn about exactly this — one more reason this book always compiles with `-Wall -Wextra`.
+**What is actually true:** `=` is assignment, not comparison, and an assignment is itself an expression — it evaluates to the value that was just assigned. `if (x = 5)` sets `x` to `5`, unconditionally, as a side effect of evaluating the condition, and then tests whether `5` is non-zero, which it always is. The branch runs on every single execution, regardless of what `x` held beforehand, and `x`'s old value is gone. The comparison you almost certainly meant is `==`, two characters, not one. Compilers commonly warn about exactly this — one more reason this website always compiles with `-Wall -Wextra`.
 
 ## Exercises
 

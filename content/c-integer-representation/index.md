@@ -10,7 +10,7 @@ track: c
 
 ## 1. Fixed-width types and stdint.h
 
-`int` is 4 bytes on every machine this book targets, but that is a convention, not a guarantee the language itself makes — the C standard only promises `int` is *at least* 16 bits wide. `<stdint.h>` provides types that make the width itself the guarantee:
+`int` is 4 bytes on every machine this website targets, but that is a convention, not a guarantee the language itself makes — the C standard only promises `int` is *at least* 16 bits wide. `<stdint.h>` provides types that make the width itself the guarantee:
 
 ```c file=widths.c run
 #include <stdio.h>
@@ -141,7 +141,7 @@ CHAR_MIN is -128
 CHAR_MAX is 127
 ```
 
-On every machine this book targets, `char` is signed, so `CHAR_MIN` is negative — the numbers above should match what you see. That is a property of these particular platforms, not of the C language: portable code that needs a guaranteed signedness asks for `signed char` or `unsigned char` explicitly, rather than assuming plain `char` behaves one way everywhere.
+On every machine this website targets, `char` is signed, so `CHAR_MIN` is negative — the numbers above should match what you see. That is a property of these particular platforms, not of the C language: portable code that needs a guaranteed signedness asks for `signed char` or `unsigned char` explicitly, rather than assuming plain `char` behaves one way everywhere.
 
 ## 6. Implicit conversion and truncation
 

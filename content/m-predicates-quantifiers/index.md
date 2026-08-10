@@ -6,7 +6,7 @@ track: math
 
 # Predicates and quantifiers
 
-`Propositional logic` worked with $p$, $q$, $r$ standing for whole, fixed statements — each one already true or false on its own. Most of the claims this book actually wants to make are not like that: "$x$ is even," "$n$ is prime," "every element of $S$ is positive." These depend on which $x$, which $n$, which $S$ you mean. This article gives you the vocabulary for that dependence, and for the two ways of turning it back into a definite, fixed truth value.
+`Propositional logic` worked with $p$, $q$, $r$ standing for whole, fixed statements — each one already true or false on its own. Most of the claims this website actually wants to make are not like that: "$x$ is even," "$n$ is prime," "every element of $S$ is positive." These depend on which $x$, which $n$, which $S$ you mean. This article gives you the vocabulary for that dependence, and for the two ways of turning it back into a definite, fixed truth value.
 
 ## 1. Predicates as parameterised propositions
 

@@ -177,7 +177,7 @@ sizeof(grid) is 24
 
 ## Answers
 
-1. Valid indices are `0` through `4`. `a[i + 1]`'s address is exactly `sizeof(int)`, `4` bytes, after `a[i]`'s address, on every machine this book targets.
+1. Valid indices are `0` through `4`. `a[i + 1]`'s address is exactly `sizeof(int)`, `4` bytes, after `a[i]`'s address, on every machine this website targets.
 
 2. `sizeof(a)` reports total bytes: `10` elements times `sizeof(int)`, `4` bytes each, is `40`. Recovering the element count needs `sizeof(a) / sizeof(a[0])`.
 

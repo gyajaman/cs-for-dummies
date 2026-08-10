@@ -6,7 +6,7 @@ track: math
 
 # Sets and functions
 
-Sets are the vocabulary the rest of this book uses to talk about collections of things precisely, and functions are the vocabulary for talking about correspondences between them precisely. Both are used constantly from here on, usually without comment, on the assumption that the words mean exactly what this article says and nothing looser.
+Sets are the vocabulary the rest of this website uses to talk about collections of things precisely, and functions are the vocabulary for talking about correspondences between them precisely. Both are used constantly from here on, usually without comment, on the assumption that the words mean exactly what this article says and nothing looser.
 
 ## 1. Set notation and membership
 
@@ -40,7 +40,7 @@ Order matters inside each pair — $(a, 1)$ and $(1, a)$ are different pairs, fr
 
 ## 5. $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{R}$
 
-Three sets of numbers, nested inside one another, come up constantly enough to earn fixed symbols. $\mathbb{N}$, the **natural numbers**, are the non-negative whole numbers: $0, 1, 2, 3, \ldots$ — this book includes $0$, matching the convention `Arrays and contiguous memory` already relied on when the first valid index was $0$, not $1$. $\mathbb{Z}$, the **integers**, extend $\mathbb{N}$ with the negative whole numbers: $\ldots, -2, -1, 0, 1, 2, \ldots$. $\mathbb{R}$, the **real numbers**, extend $\mathbb{Z}$ further, filling in every value between the integers, not just fractions but every point on the number line. Each is a proper subset of the next: $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{R}$.
+Three sets of numbers, nested inside one another, come up constantly enough to earn fixed symbols. $\mathbb{N}$, the **natural numbers**, are the non-negative whole numbers: $0, 1, 2, 3, \ldots$ — this website includes $0$, matching the convention `Arrays and contiguous memory` already relied on when the first valid index was $0$, not $1$. $\mathbb{Z}$, the **integers**, extend $\mathbb{N}$ with the negative whole numbers: $\ldots, -2, -1, 0, 1, 2, \ldots$. $\mathbb{R}$, the **real numbers**, extend $\mathbb{Z}$ further, filling in every value between the integers, not just fractions but every point on the number line. Each is a proper subset of the next: $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{R}$.
 
 ## 6. Finite cardinality
 

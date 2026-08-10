@@ -44,6 +44,10 @@ phrases ("it's worth noting", "essentially", "simply"). No emoji.
 
 Length is whatever the concept requires. Do not pad and do not truncate to hit a number.
 
+**This is a website, not a book.** When an article refers to itself or its scope, say
+"this website" (or "this site"), never "this book". The same goes for "chapter" and
+"page" as stand-ins for an article — say "article".
+
 Metric units. LaTeX for all mathematics, `$...$` inline and `$$...$$` displayed, rendered
 by KaTeX.
 

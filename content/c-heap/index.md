@@ -78,7 +78,7 @@ The request can fail — the system may simply have no more memory to give out �
 
 ### Wrong model: `malloc`'s return value doesn't really need checking, since allocation basically always succeeds
 
-**What is actually true:** `malloc` returning `NULL` is rare on the small programs this book runs, which is exactly what makes the habit easy to skip and expensive to skip. `NULL` is `Pointers`' own guaranteed not-a-valid-object value, and dereferencing it is undefined behaviour with no distinguishing mark to say "this one came from a failed allocation" — the crash, if there even is one, gives no better information than any other `NULL` dereference. Section 2's `if (p == NULL)` check is the only point in the program that ever has the information needed to handle the failure sensibly; skip it, and that information is gone the instant the next line runs.
+**What is actually true:** `malloc` returning `NULL` is rare on the small programs this website runs, which is exactly what makes the habit easy to skip and expensive to skip. `NULL` is `Pointers`' own guaranteed not-a-valid-object value, and dereferencing it is undefined behaviour with no distinguishing mark to say "this one came from a failed allocation" — the crash, if there even is one, gives no better information than any other `NULL` dereference. Section 2's `if (p == NULL)` check is the only point in the program that ever has the information needed to handle the failure sensibly; skip it, and that information is gone the instant the next line runs.
 
 ## 3. Computing the size correctly
 

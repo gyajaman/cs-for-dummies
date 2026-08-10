@@ -34,7 +34,7 @@ n is 7
 
 ## 2. A type is size plus interpretation
 
-`The machine model` established that memory is untyped: a byte is a byte, and meaning is supplied entirely by the code that reads it. A **type** is exactly that supplied meaning, fixed at compile time. `int n;` reserves `sizeof(int)` bytes — 4, on every machine this book assumes — and every later use of `n` reads or writes those same 4 bytes, interpreted as a signed integer.
+`The machine model` established that memory is untyped: a byte is a byte, and meaning is supplied entirely by the code that reads it. A **type** is exactly that supplied meaning, fixed at compile time. `int n;` reserves `sizeof(int)` bytes — 4, on every machine this website assumes — and every later use of `n` reads or writes those same 4 bytes, interpreted as a signed integer.
 
 ```c file=sizes.c run
 #include <stdio.h>
@@ -54,7 +54,7 @@ int:    4 bytes
 double: 8 bytes
 ```
 
-`sizeof` is an operator, not a function: it does not evaluate its argument, it asks the compiler how many bytes a type, or an already-declared variable, occupies — and for these types the answer is known before the program ever runs. `sizeof(char)` is exactly `1` by definition; a byte and a `char` are the same size in C, part of why `The machine model` could describe memory in bytes in the first place. The other sizes are not guaranteed by the language, only conventional — every machine this book targets agrees on them.
+`sizeof` is an operator, not a function: it does not evaluate its argument, it asks the compiler how many bytes a type, or an already-declared variable, occupies — and for these types the answer is known before the program ever runs. `sizeof(char)` is exactly `1` by definition; a byte and a `char` are the same size in C, part of why `The machine model` could describe memory in bytes in the first place. The other sizes are not guaranteed by the language, only conventional — every machine this website targets agrees on them.
 
 This is also why the format specifier in `printf` has to match the type: `%d` tells `printf` to read 4 bytes off the argument list and interpret them as an `int`. Hand it a `double`, which is 8 bytes with a completely different bit layout, and `printf` reads the wrong number of bytes the wrong way. The compiler is not always able to catch this for you.
 
@@ -168,7 +168,7 @@ This fragment is not compiled here, deliberately: reading a variable before it h
 
 1. What two pieces of information does a type give the compiler about a variable?
 
-2. `sizeof(char)` is guaranteed by the C language to be exactly `1`. Why does that make it different from `sizeof(int)`, which this book states as `4` but the language itself does not guarantee?
+2. `sizeof(char)` is guaranteed by the C language to be exactly `1`. Why does that make it different from `sizeof(int)`, which this website states as `4` but the language itself does not guarantee?
 
 3. Rewrite the program in section 4 with three levels of nested blocks, each declaring its own `x` with a different value, and predict the full output before running it.
 
@@ -186,7 +186,7 @@ This fragment is not compiled here, deliberately: reading a variable before it h
 
 1. Its size in bytes, and how to interpret the bits stored in those bytes — as a signed integer, an unsigned integer, a character, and so on.
 
-2. The C language defines a `char` to be exactly one byte, so `sizeof(char)` is `1` on every conforming C implementation, by the language's own rules. The size of `int` is left to the implementation; 4 bytes is what every machine this book targets uses, but a conforming C implementation is free to choose differently.
+2. The C language defines a `char` to be exactly one byte, so `sizeof(char)` is `1` on every conforming C implementation, by the language's own rules. The size of `int` is left to the implementation; 4 bytes is what every machine this website targets uses, but a conforming C implementation is free to choose differently.
 
 3. Output follows the nesting: each block's `printf` reports that block's own `x`, and unwinding back out reports the enclosing block's `x`, unchanged, at each step. For example, with outer `1`, middle `2`, inner `3`: `1`, `2`, `3`, `2`, `1`.
 

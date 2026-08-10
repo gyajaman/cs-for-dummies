@@ -6,7 +6,7 @@ track: math
 
 # Propositional logic
 
-Every proof, every conditional statement, every claim in this book that something follows from something else, follows the rules laid out here. They are worth learning explicitly rather than absorbing by feel, because at least one of them, section 3's, disagrees with how the corresponding English word is used casually — and the disagreement is deliberate, not a simplification.
+Every proof, every conditional statement, every claim on this website that something follows from something else, follows the rules laid out here. They are worth learning explicitly rather than absorbing by feel, because at least one of them, section 3's, disagrees with how the corresponding English word is used casually — and the disagreement is deliberate, not a simplification.
 
 ## 1. Propositions
 
@@ -54,7 +54,7 @@ Only one row is false: $p$ true, $q$ false. Every other row, including both rows
 
 ### Wrong model: $p \to q$ is false whenever $p$ is false
 
-**What is actually true:** $p \to q$ is true whenever $p$ is false, regardless of $q$ — the third and fourth rows of the table above. Read $p \to q$ as a promise: "if $p$ happens, $q$ will happen too." The promise is *broken* only when $p$ happens and $q$ does not — the one false row. If $p$ never happens, the promise was never put to the test, and a promise that was never tested has not been broken; calling it true, "**vacuously**" true, is the position that makes the rest of logic and every proof by contradiction in this book behave consistently. "If $7$ is even, then $7$ is prime" is a true statement, despite $7$ not being even and the claim sounding strange — the hypothesis simply never applies, so there is nothing for the implication to get wrong.
+**What is actually true:** $p \to q$ is true whenever $p$ is false, regardless of $q$ — the third and fourth rows of the table above. Read $p \to q$ as a promise: "if $p$ happens, $q$ will happen too." The promise is *broken* only when $p$ happens and $q$ does not — the one false row. If $p$ never happens, the promise was never put to the test, and a promise that was never tested has not been broken; calling it true, "**vacuously**" true, is the position that makes the rest of logic and every proof by contradiction on this website behave consistently. "If $7$ is even, then $7$ is prime" is a true statement, despite $7$ not being even and the claim sounding strange — the hypothesis simply never applies, so there is nothing for the implication to get wrong.
 
 ## 4. Biconditional
 

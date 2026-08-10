@@ -14,7 +14,7 @@ A compiler is a program. Installing one means putting an executable called `gcc`
 
 **Linux.** Most distributions install one straight from the package manager: `sudo apt install build-essential` on Debian and Ubuntu, `sudo dnf install gcc` on Fedora, `sudo pacman -S gcc` on Arch. Many developer-oriented Linux installations already have gcc present.
 
-**macOS.** Install the Xcode Command Line Tools: run `xcode-select --install` in a terminal and follow the prompts. This gives you commands called `gcc` and `cc`, but they are actually Apple's build of a different compiler, clang, answering to the gcc name for compatibility. The commands in this book work unchanged either way; only the exact wording of warnings and errors will sometimes differ from a machine running the genuine GNU Compiler Collection. The real thing is installable through Homebrew, but nothing here requires it.
+**macOS.** Install the Xcode Command Line Tools: run `xcode-select --install` in a terminal and follow the prompts. This gives you commands called `gcc` and `cc`, but they are actually Apple's build of a different compiler, clang, answering to the gcc name for compatibility. The commands on this website work unchanged either way; only the exact wording of warnings and errors will sometimes differ from a machine running the genuine GNU Compiler Collection. The real thing is installable through Homebrew, but nothing here requires it.
 
 **Windows.** The most reliable route is to install a Linux environment through WSL (Windows Subsystem for Linux), then follow the Linux instructions inside it — search "install WSL" for Microsoft's current instructions, since the exact command has changed across Windows versions. Native alternatives such as MSYS2 also provide a working gcc, at the cost of a fussier setup.
 
@@ -89,7 +89,7 @@ The file you have been editing, `hello.c`, is text. It means nothing to the CPU,
 gcc -Wall -Wextra -std=c17 -o hello hello.c
 ```
 
-Every compile command in this book takes this shape. `-Wall -Wextra` ask the compiler to report constructs that are legal C but are probably mistakes — without them, gcc stays quiet about a lot of code that will misbehave. `-std=c17` pins the language version, so the rules do not shift under you as compilers update. `-o hello` names the output file `hello`; without it, gcc names the output `a.out` by default, a name left over from a much older convention. `hello.c` is the source file being compiled.
+Every compile command on this website takes this shape. `-Wall -Wextra` ask the compiler to report constructs that are legal C but are probably mistakes — without them, gcc stays quiet about a lot of code that will misbehave. `-std=c17` pins the language version, so the rules do not shift under you as compilers update. `-o hello` names the output file `hello`; without it, gcc names the output `a.out` by default, a name left over from a much older convention. `hello.c` is the source file being compiled.
 
 Run that command and a new file, `hello`, appears alongside `hello.c`. It is a binary file, bytes of machine instructions, not text, and it did not exist until you compiled. Edit `hello.c` again without recompiling, and `hello` does not change: it is a snapshot, produced once, of whatever `hello.c` contained at compile time.
 

@@ -148,7 +148,7 @@ int main(void)
 total is 100
 ```
 
-`&a[4]` computes the address one element past the last valid one, `a[3]`. Computing this address is explicitly legal in C, even though `a[4]` itself is out of bounds — `Arrays and contiguous memory` already established that reading or writing `a[4]` is undefined behaviour, and that has not changed. What is new is that *forming the address itself*, without dereferencing it, is a defined operation, useful precisely as a stopping point: the loop above walks `p` from `begin` to `end`, comparing addresses rather than counting indices, and stops the instant `p` reaches `end`, never dereferencing it. This one-past-the-end address is the C convention that ranges like this build on throughout the rest of the book.
+`&a[4]` computes the address one element past the last valid one, `a[3]`. Computing this address is explicitly legal in C, even though `a[4]` itself is out of bounds — `Arrays and contiguous memory` already established that reading or writing `a[4]` is undefined behaviour, and that has not changed. What is new is that *forming the address itself*, without dereferencing it, is a defined operation, useful precisely as a stopping point: the loop above walks `p` from `begin` to `end`, comparing addresses rather than counting indices, and stops the instant `p` reaches `end`, never dereferencing it. This one-past-the-end address is the C convention that ranges like this build on throughout the rest of the website.
 
 ### Wrong model: A one-past-the-end pointer is safe to dereference because it doesn't crash
 

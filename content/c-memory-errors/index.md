@@ -45,7 +45,7 @@ A leak inside a function called three times, as above, is three lost blocks. The
 
 ### Wrong model: A program that runs correctly and exits cleanly has no memory errors
 
-**What is actually true:** Section 1's program prints the correct output on every run and exits with status `0` — every visible signal of correctness that this book has taught you to check for is present. It still leaks three allocations. A leak's only symptom is memory not being returned to the system; it produces no wrong values, no crash, and no nonzero exit code, which is exactly why leaks are not caught by reading a program's output and are the primary reason a tool like section 9's `valgrind` exists — to report on memory the program itself never mentions losing.
+**What is actually true:** Section 1's program prints the correct output on every run and exits with status `0` — every visible signal of correctness that this website has taught you to check for is present. It still leaks three allocations. A leak's only symptom is memory not being returned to the system; it produces no wrong values, no crash, and no nonzero exit code, which is exactly why leaks are not caught by reading a program's output and are the primary reason a tool like section 9's `valgrind` exists — to report on memory the program itself never mentions losing.
 
 ## 2. Double free
 
@@ -56,7 +56,7 @@ free(p);
 free(p);
 ```
 
-Not run: this compiles without a single warning, and freeing `p` a second time is undefined behaviour, not a defined error the language catches. In practice, on the systems this book targets, the memory allocator keeps its own bookkeeping data alongside every block it hands out, and freeing the same block twice corrupts that bookkeeping — commonly detected by the allocator itself, which aborts the entire program with a message such as `free(): double free detected in tcache 2` rather than continuing. That abort can happen immediately, or after intervening allocations have already been corrupted and the program crashes somewhere else entirely, again illustrating that the point of failure is not reliably the point of the actual mistake.
+Not run: this compiles without a single warning, and freeing `p` a second time is undefined behaviour, not a defined error the language catches. In practice, on the systems this website targets, the memory allocator keeps its own bookkeeping data alongside every block it hands out, and freeing the same block twice corrupts that bookkeeping — commonly detected by the allocator itself, which aborts the entire program with a message such as `free(): double free detected in tcache 2` rather than continuing. That abort can happen immediately, or after intervening allocations have already been corrupted and the program crashes somewhere else entirely, again illustrating that the point of failure is not reliably the point of the actual mistake.
 
 The first `free(p);` is entirely correct on its own — the bug exists only because of the second call, using a `p` that no longer names memory the program owns. `The heap: malloc, free, and object lifetime` already established that `free` cannot reach back into its caller and change what `p` holds, since it receives only a copy of `p`'s value, in `Functions, parameters, and pass-by-value`'s sense; nothing about calling `free` once marks `p` as spent, which is exactly why a second, mistaken call compiles and runs exactly as if the first `free` had never happened, until the allocator's own internal checks catch the inconsistency.
 
@@ -218,7 +218,7 @@ Run against section 1's `leak.c`, this reports exactly the fact that program's o
 
 6. Why does section 6's demonstration program deliberately avoid printing `a[0]` before writing to it, instead discarding the read with `(void)a[0];`?
 
-7. Using section 8, explain why none of sections 2, 3, or 5's code blocks are marked `run` in this article, when most code blocks throughout the rest of the book are.
+7. Using section 8, explain why none of sections 2, 3, or 5's code blocks are marked `run` in this article, when most code blocks throughout the rest of the website are.
 
 8. A colleague says "the program crashed on line 40, so the bug is on line 40." Using section 8 and `Debugging: printf, gdb, sanitisers`, explain what is wrong with that reasoning in the specific context of memory errors.
 

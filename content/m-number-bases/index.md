@@ -67,7 +67,7 @@ Each hexadecimal digit distinguishes exactly $16$ possibilities — and $16 = 2^
 
 $$11111111_2 = ff_{16} = 15 \times 16 + 15 = 255$$
 
-This is the entire reason hexadecimal is used constantly for byte values and decimal is not: in decimal, a byte's value needs one, two, or three digits depending on the value, an invisible, value-dependent boundary. In hexadecimal, it is always exactly two, every time, for every byte, which is why memory is written in hex throughout this book rather than in decimal.
+This is the entire reason hexadecimal is used constantly for byte values and decimal is not: in decimal, a byte's value needs one, two, or three digits depending on the value, an invisible, value-dependent boundary. In hexadecimal, it is always exactly two, every time, for every byte, which is why memory is written in hex throughout this website rather than in decimal.
 
 ### Wrong model: A digit string means the same thing regardless of which base it is read in
 

@@ -30,7 +30,7 @@ p holds the address {{ANY}}
 sizeof(p) is 8
 ```
 
-`int *p` declares `p` as a variable of type "pointer to `int`" — its own storage, its own address, exactly like any other variable, except that the value stored *in* `p` is itself an address: `n`'s. Run this and compare the two printed addresses; they are identical, because `p` was initialised with exactly `&n`. `sizeof(p)` is `8` on every machine this book targets — the size of an address itself, the same for a pointer to any type, since a pointer's job is always to hold one address, regardless of what lives there.
+`int *p` declares `p` as a variable of type "pointer to `int`" — its own storage, its own address, exactly like any other variable, except that the value stored *in* `p` is itself an address: `n`'s. Run this and compare the two printed addresses; they are identical, because `p` was initialised with exactly `&n`. `sizeof(p)` is `8` on every machine this website targets — the size of an address itself, the same for a pointer to any type, since a pointer's job is always to hold one address, regardless of what lives there.
 
 ## 2. Dereference
 
@@ -224,7 +224,7 @@ int main(void)
 
 1. `n`'s address. `p` never holds `9`; it holds wherever `n` lives, and dereferencing `p` is the separate step that reaches `9`.
 
-2. A pointer's size is the size of an address, not the size of whatever it points to. Every pointer, regardless of the type it points to, holds exactly one address, so they are all the same size on a given machine — `8` bytes on the ones this book targets.
+2. A pointer's size is the size of an address, not the size of whatever it points to. Every pointer, regardless of the type it points to, holds exactly one address, so they are all the same size on a given machine — `8` bytes on the ones this website targets.
 
 3. `increment` receives a copy of `n`'s address, not a copy of `n`'s value. Dereferencing that copied address, `*x = *x + 1;`, reaches `n`'s actual storage directly, which plain pass-by-value never allowed, since a copied value has no route back to where it came from.
 

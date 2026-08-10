@@ -40,7 +40,7 @@ outer's a is at {{ANY}}
 inner's b is at {{ANY}}
 ```
 
-`outer` is still running, its frame still on the stack, when it calls `inner` — `inner`'s frame does not replace `outer`'s, it sits alongside it, nearer the top. Run this yourself and compare the two addresses: they are close together but distinct, and on the machines this book targets, `inner`'s locals land at a numerically lower address than `outer`'s — the stack grows *downward* as calls nest deeper, a convention of the platforms this book targets, not a rule the C language itself states.
+`outer` is still running, its frame still on the stack, when it calls `inner` — `inner`'s frame does not replace `outer`'s, it sits alongside it, nearer the top. Run this yourself and compare the two addresses: they are close together but distinct, and on the machines this website targets, `inner`'s locals land at a numerically lower address than `outer`'s — the stack grows *downward* as calls nest deeper, a convention of the platforms this website targets, not a rule the C language itself states.
 
 ## 2. Push on call, pop on return
 

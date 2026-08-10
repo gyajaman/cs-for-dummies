@@ -167,7 +167,7 @@ b is (100, 2)
 
 ### Wrong model: Assigning one struct variable to another links them
 
-**What is actually true:** `b = a;` copies `a`'s bytes into `b` once, at that moment, and nothing more — it does not make `b` an alternate name for `a`'s storage, and no later change to either one is reflected in the other. This is worth stating plainly because it is not universal across programming languages: some languages assign composite values by reference, so that two names end up pointing at one shared object. C does not. A struct assignment is a full, independent copy, exactly like every other assignment in this book.
+**What is actually true:** `b = a;` copies `a`'s bytes into `b` once, at that moment, and nothing more — it does not make `b` an alternate name for `a`'s storage, and no later change to either one is reflected in the other. This is worth stating plainly because it is not universal across programming languages: some languages assign composite values by reference, so that two names end up pointing at one shared object. C does not. A struct assignment is a full, independent copy, exactly like every other assignment on this website.
 
 ## 7. Arrays of structs
 

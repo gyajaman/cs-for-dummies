@@ -122,7 +122,7 @@ When a failure only shows up on a large or complicated input, the same disciplin
 
 ### Wrong model: A compiler warning that does not stop compilation can be safely ignored
 
-**What is actually true:** `-Wall -Wextra`, part of every compile command in this book since `Building and running a C program`, exists precisely to report constructs that are legal C and frequently wrong anyway. A warning is not a lesser kind of error to defer; it is often the fastest hypothesis you will ever get handed for free, pointing at the exact line worth suspecting first, before you have written a single instrumentation `printf` or opened `gdb` at all.
+**What is actually true:** `-Wall -Wextra`, part of every compile command on this website since `Building and running a C program`, exists precisely to report constructs that are legal C and frequently wrong anyway. A warning is not a lesser kind of error to defer; it is often the fastest hypothesis you will ever get handed for free, pointing at the exact line worth suspecting first, before you have written a single instrumentation `printf` or opened `gdb` at all.
 
 ### Wrong model: The first suspicious-looking line is the one causing the bug
 
