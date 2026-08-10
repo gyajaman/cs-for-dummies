@@ -173,7 +173,7 @@ This is exactly why every error in this article was demonstrated with `nocompile
 
 Reading source code is not a reliable way to find any of the bugs in this article, precisely because the broken line and the visibly wrong line are usually apart. Two tools exist specifically to close that gap by watching memory operations as the program actually runs, rather than by inspecting the source.
 
-`-fsanitize=address`, added to the compile command already introduced in `Debugging: printf, gdb, sanitisers`, instruments every memory access the compiled program makes and aborts immediately, with a detailed report, the instant one of them touches memory it should not. Compiling section 3's use-after-free with it produces a report along these lines:
+`-fsanitize=address`, added to the compile command, instruments every memory access the compiled program makes and aborts immediately, with a detailed report, the instant one of them touches memory it should not — `Debugging: printf, gdb, sanitisers` covers the flag itself and its companion, `-fsanitize=undefined`, in more general terms. Compiling section 3's use-after-free with it produces a report along these lines:
 
 ```output
 ==12345==ERROR: AddressSanitizer: heap-use-after-free on address 0x...
@@ -220,7 +220,7 @@ Run against section 1's `leak.c`, this reports exactly the fact that program's o
 
 7. Using section 8, explain why none of sections 2, 3, or 5's code blocks are marked `run` in this article, when most code blocks throughout the rest of the website are.
 
-8. A colleague says "the program crashed on line 40, so the bug is on line 40." Using section 8 and `Debugging: printf, gdb, sanitisers`, explain what is wrong with that reasoning in the specific context of memory errors.
+8. A colleague says "the program crashed on line 40, so the bug is on line 40." Using section 8, explain what is wrong with that reasoning in the specific context of memory errors.
 
 ## Answers
 
@@ -238,4 +238,4 @@ Run against section 1's `leak.c`, this reports exactly the fact that program's o
 
 7. Every one of those examples is undefined behaviour whose actual result — whether it crashes, what value prints, whether it corrupts something else entirely — depends on the specific allocator, compiler, and memory layout of whatever machine runs it, and is not guaranteed to be the same from one run to the next. Marking them `run` would require an `output` block asserting one fixed, correct result, which section 8 explains does not exist for code like this.
 
-8. Section 8 established that the operation that visibly fails and the operation that was actually wrong are frequently different lines — a crash on line 40 may be the allocator finally noticing corruption caused by a buffer overrun on line 12, or a use-after-free reading memory that was reused several calls earlier. `Debugging: printf, gdb, sanitisers` already warned against fixing the first suspicious-looking line without confirming a hypothesis first; for memory errors specifically, the line that crashes is close to the least reliable indicator of where the actual mistake is, which is exactly why tools like AddressSanitizer report the allocation and free history alongside the crash site rather than the crash site alone.
+8. Section 8 established that the operation that visibly fails and the operation that was actually wrong are frequently different lines — a crash on line 40 may be the allocator finally noticing corruption caused by a buffer overrun on line 12, or a use-after-free reading memory that was reused several calls earlier. Fixing the first suspicious-looking line without first confirming a hypothesis about where the actual divergence happens risks changing something that was never broken; for memory errors specifically, the line that crashes is close to the least reliable indicator of where the actual mistake is, which is exactly why tools like AddressSanitizer report the allocation and free history alongside the crash site rather than the crash site alone.
