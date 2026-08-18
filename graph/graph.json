@@ -283,7 +283,8 @@
       "track": "c",
       "title": "Function pointers",
       "prereqs": [
-        "c-pointers"
+        "c-pointers",
+        "c-arrays"
       ],
       "scope": "Syntax; taking a function's address; calling through a pointer; passing behaviour as an argument; the qsort comparator; dispatch tables."
     },
