@@ -406,7 +406,8 @@
       "prereqs": [
         "a-analysis-iterative",
         "a-loop-invariants",
-        "c-pointer-arithmetic"
+        "c-pointer-arithmetic",
+        "c-integer-representation"
       ],
       "scope": "Linear search and its linear cost; binary search on a sorted array; the invariant; correct midpoint computation and the overflow bug; termination; the halving recurrence giving logarithmic cost; boundary off-by-one errors."
     },
