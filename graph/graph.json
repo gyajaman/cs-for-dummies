@@ -460,7 +460,8 @@
       "title": "Breadth-first search",
       "prereqs": [
         "d-graph-representations",
-        "d-stacks-queues"
+        "d-stacks-queues",
+        "m-asymptotic-notation"
       ],
       "scope": "Layer-by-layer exploration; the queue; visited marking; shortest paths in unweighted graphs; parent array and path reconstruction; Theta(V + E); why vertices are marked on enqueue rather than dequeue."
     },
