@@ -324,6 +324,10 @@ body {
    for why). .legend itself carries no clip-path of its own — a clip-path
    on the parent clips its overflowing children too, which cropped away
    all but a sliver of the border pseudo-element's outward bleed. */
+.app-shell.mode-list .legend {
+  display: none;
+}
+
 .legend {
   position: absolute;
   left: var(--space-4);
