@@ -19,6 +19,10 @@ const canvas = document.getElementById("graph-canvas");
 const nodesLayer = document.getElementById("nodes-layer");
 const edgesLayer = document.getElementById("edges-layer");
 const legend = document.getElementById("legend");
+const appShell = document.querySelector(".app-shell");
+const listView = document.getElementById("list-view");
+const viewGraphBtn = document.getElementById("view-graph-btn");
+const viewListBtn = document.getElementById("view-list-btn");
 const searchInput = document.getElementById("search-input");
 const searchCount = document.getElementById("search-count");
 const zoomInBtn = document.getElementById("zoom-in-btn");
@@ -49,11 +53,14 @@ initSearch();
 initPanel();
 initHoverFocus();
 initLegend();
+initViewToggle();
+initListView();
 
 function render() {
   nodesLayer.innerHTML = data.nodes.map(nodeMarkup).join("");
   edgesLayer.innerHTML = data.edges.map(edgeMarkup).join("");
   renderLegend();
+  renderListView();
 }
 
 function nodeMarkup(node) {
@@ -136,13 +143,12 @@ function renderLegend() {
     { id: "ds", label: "Data structures" },
     { id: "algo", label: "Algorithms" },
   ];
-  legend.innerHTML =
-    tracks
-      .map(
-        (t) =>
-          `<div class="legend-row legend-row-toggle" data-track="${t.id}" role="button" tabindex="0" aria-pressed="true"><span class="legend-swatch" style="background:var(--track-${t.id})"></span>${t.label}</div>`
-      )
-      .join("") + `<div class="legend-row"><span class="legend-swatch outline"></span>No article yet</div>`;
+  legend.innerHTML = tracks
+    .map(
+      (t) =>
+        `<div class="legend-row legend-row-toggle" data-track="${t.id}" role="button" tabindex="0" aria-pressed="true"><span class="legend-swatch" style="background:var(--track-${t.id})"></span>${t.label}</div>`
+    )
+    .join("");
 }
 
 // ---------- legend track filter ----------
@@ -182,11 +188,98 @@ function applyTrackFilter() {
     const to = byId.get(el.dataset.to);
     el.classList.toggle("track-hidden", disabledTracks.has(from.track) || disabledTracks.has(to.track));
   });
+  // Every list section is a single track (renderListView's own grouping),
+  // so hiding a disabled track means hiding its whole section — not just
+  // dimming the rows inside it and leaving an empty header behind.
+  listView.querySelectorAll(".list-section").forEach((el) => {
+    el.classList.toggle("track-hidden", disabledTracks.has(el.dataset.track));
+  });
   legend.querySelectorAll(".legend-row-toggle").forEach((row) => {
     const off = disabledTracks.has(row.dataset.track);
     row.classList.toggle("off", off);
     row.setAttribute("aria-pressed", String(!off));
   });
+}
+
+// ---------- list view ----------
+// A flat, scrollable alternative to the pan/zoom graph — every node, grouped
+// by track, in the order graph.json declares them. Shares the legend's track
+// filter and the toolbar search with the graph view; clicking a row opens
+// the identical side panel a graph card's click does.
+
+function renderListView() {
+  const tracks = [
+    { id: "math", label: "Math" },
+    { id: "c", label: "C" },
+    { id: "ds", label: "Data structures" },
+    { id: "algo", label: "Algorithms" },
+  ];
+  listView.innerHTML = tracks
+    .map((t) => {
+      const nodes = data.nodes.filter((n) => n.track === t.id);
+      if (!nodes.length) return "";
+      return `<section class="list-section" data-track="${t.id}">
+        <h2 class="list-section-title" style="color:var(--track-${t.id})">${escapeHtml(t.label)}</h2>
+        <div class="list-rows">${nodes.map(listItemMarkup).join("")}</div>
+      </section>`;
+    })
+    .join("");
+}
+
+function listItemMarkup(node) {
+  const classes = ["list-item", `track-${node.track}`];
+  if (!node.hasArticle) classes.push("no-article");
+  const tag = node.optional ? `<span class="list-item-tag">optional</span>` : "";
+  const lockBadge = !node.hasArticle
+    ? `<span class="list-item-lock" title="Article not written yet">${LOCK_ICON}</span>`
+    : "";
+  return `<button type="button" class="${classes.join(" ")}" data-id="${node.id}">
+    <span class="list-item-dot" style="background:var(--track-${node.track})"></span>
+    <span class="list-item-text">
+      <span class="list-item-title">${escapeHtml(node.title)}${tag}</span>
+      <span class="list-item-scope">${escapeHtml(node.scope)}</span>
+    </span>
+    ${lockBadge}
+  </button>`;
+}
+
+function initListView() {
+  listView.addEventListener("click", (e) => {
+    const item = e.target.closest(".list-item");
+    if (!item) return;
+    openPanel(item.dataset.id);
+  });
+}
+
+// ---------- graph / list view toggle ----------
+
+function initViewToggle() {
+  viewGraphBtn.addEventListener("click", () => setView("graph"));
+  viewListBtn.addEventListener("click", () => setView("list"));
+}
+
+function setView(mode) {
+  const isGraph = mode === "graph";
+  appShell.classList.toggle("mode-list", !isGraph);
+  viewport.hidden = !isGraph;
+  listView.hidden = isGraph;
+  viewGraphBtn.classList.toggle("active", isGraph);
+  viewListBtn.classList.toggle("active", !isGraph);
+  viewGraphBtn.setAttribute("aria-pressed", String(isGraph));
+  viewListBtn.setAttribute("aria-pressed", String(!isGraph));
+  if (isGraph) {
+    // The graph's own sizing depends on measuring the (now-visible-again)
+    // viewport; if the window was resized while it was hidden, the fit
+    // computed the last time it was visible is stale. Cheap to redo, and
+    // requestAnimationFrame gives the browser one paint to actually lay the
+    // now-unhidden element out before its rect is read, the same race the
+    // initial page-load fit already guards against.
+    canvas.classList.add("no-transition");
+    requestAnimationFrame(() => {
+      fitToScreen();
+      requestAnimationFrame(() => canvas.classList.remove("no-transition"));
+    });
+  }
 }
 
 // ---------- pan / zoom ----------
@@ -385,6 +478,9 @@ function initSearch() {
     edgesLayer.querySelectorAll(".edge").forEach((el) => {
       el.classList.toggle("dimmed", !(matchIds.has(el.dataset.from) && matchIds.has(el.dataset.to)));
     });
+    listView.querySelectorAll(".list-item").forEach((el) => {
+      el.classList.toggle("dimmed", !matchIds.has(el.dataset.id));
+    });
     searchCount.textContent = matches.length ? `${matches.length} found` : "no matches";
   });
 
@@ -394,7 +490,7 @@ function initSearch() {
     if (!q) return;
     const first = data.nodes.find((n) => n.title.toLowerCase().includes(q));
     if (first) {
-      panToNode(first.id);
+      if (!appShell.classList.contains("mode-list")) panToNode(first.id);
       openPanel(first.id);
     }
   });
@@ -403,6 +499,7 @@ function initSearch() {
 function clearSearch() {
   nodesLayer.querySelectorAll(".node.dimmed").forEach((el) => el.classList.remove("dimmed"));
   edgesLayer.querySelectorAll(".edge.dimmed").forEach((el) => el.classList.remove("dimmed"));
+  listView.querySelectorAll(".list-item.dimmed").forEach((el) => el.classList.remove("dimmed"));
   searchCount.textContent = "";
 }
 

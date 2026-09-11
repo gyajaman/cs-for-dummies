@@ -107,7 +107,8 @@ body {
   flex-shrink: 0;
 }
 
-.zoom-group {
+.zoom-group,
+.view-group {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -117,20 +118,40 @@ body {
   background: color-mix(in srgb, var(--bg) 50%, transparent);
 }
 
-.zoom-group .icon-btn {
+.zoom-group .icon-btn,
+.view-group .icon-btn {
   box-shadow: none;
 }
 
-.zoom-group .icon-btn::before {
+.zoom-group .icon-btn::before,
+.view-group .icon-btn::before {
   background: transparent;
 }
 
-.zoom-group .icon-btn::after {
+.zoom-group .icon-btn::after,
+.view-group .icon-btn::after {
   background: var(--bg-panel);
 }
 
-.zoom-group .icon-btn:hover::before {
+.zoom-group .icon-btn:hover::before,
+.view-group .icon-btn:hover::before {
   background: var(--accent);
+}
+
+.view-group .icon-btn.active {
+  color: var(--accent);
+}
+
+.view-group .icon-btn.active::before {
+  background: var(--accent);
+}
+
+.view-group .icon-btn.active::after {
+  background: var(--accent-soft);
+}
+
+.app-shell.mode-list .zoom-group {
+  visibility: hidden;
 }
 
 /* ---------- graph viewport ---------- */
@@ -384,11 +405,131 @@ body {
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 20%, transparent);
 }
 
-.legend-swatch.outline {
-  border-radius: 2px;
-  background: var(--bg-elevated) !important;
-  border: 1px dashed var(--border-strong);
-  box-shadow: none;
+/* ---------- list view ---------- */
+/* A flat alternative to the graph, toggled by the view-group in the
+   toolbar. Occupies the same flex slot .graph-viewport does; exactly one
+   of the two is ever unhidden at a time (see setView() in graph-client). */
+
+.list-view[hidden],
+.graph-viewport[hidden] {
+  display: none !important;
+}
+
+.list-view {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  background-color: var(--bg);
+  padding: var(--space-6) var(--space-6) var(--space-8);
+}
+
+.list-section {
+  max-width: 760px;
+  margin: 0 auto var(--space-7);
+}
+
+.list-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--border-strong);
+}
+
+.list-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  background: var(--bg-panel);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+}
+
+.list-item:hover {
+  background: var(--bg-hover);
+}
+
+.list-section.track-hidden {
+  display: none;
+}
+
+.list-item.dimmed {
+  opacity: 0.2;
+}
+
+.list-item-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  margin-top: 6px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 20%, transparent);
+}
+
+.list-item-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.list-item-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+}
+
+.list-item.no-article .list-item-title {
+  color: var(--text-faint);
+}
+
+.list-item-tag {
+  margin-left: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.list-item-scope {
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.list-item-lock {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--text-faint);
+}
+
+.list-item-lock svg {
+  display: block;
+  width: 13px;
+  height: 13px;
 }
 
 /* ---------- side panel ---------- */
@@ -576,5 +717,8 @@ body {
     left: var(--space-2);
     bottom: var(--space-2);
     padding: var(--space-2) var(--space-3);
+  }
+  .list-view {
+    padding: var(--space-4) var(--space-4) var(--space-7);
   }
 }

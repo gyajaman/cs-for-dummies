@@ -15,6 +15,10 @@ const ICONS = {
   "chevron-left":
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
   lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  "view-graph":
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6.2 7.8 10.5 16.2M17.8 7.8 13.5 16.2"/></svg>',
+  "view-list":
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4.5" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.4" fill="currentColor" stroke="none"/></svg>',
 };
 
 export function icon(name) {
@@ -62,6 +66,10 @@ ${head({ title, description, assetPrefix: "" })}
     <span class="search-count" id="search-count"></span>
     <div class="toolbar-spacer"></div>
     <div class="toolbar-controls">
+      <div class="view-group" role="group" aria-label="View">
+        <button class="icon-btn active" id="view-graph-btn" title="Graph view" aria-label="Graph view" aria-pressed="true">${icon("view-graph")}</button>
+        <button class="icon-btn" id="view-list-btn" title="List view" aria-label="List view" aria-pressed="false">${icon("view-list")}</button>
+      </div>
       <div class="zoom-group">
         <button class="icon-btn" id="zoom-out-btn" title="Zoom out" aria-label="Zoom out">${icon("zoom-out")}</button>
         <button class="icon-btn" id="fit-btn" title="Fit to screen" aria-label="Fit to screen">${icon("fit")}</button>
@@ -86,6 +94,7 @@ ${head({ title, description, assetPrefix: "" })}
       </g>
     </svg>
   </div>
+  <div class="list-view" id="list-view" hidden></div>
   <div class="legend" id="legend"></div>
   <div class="side-panel-backdrop" id="side-panel-backdrop"></div>
   <aside class="side-panel" id="side-panel">
