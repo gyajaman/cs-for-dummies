@@ -472,7 +472,8 @@
       "prereqs": [
         "d-graph-representations",
         "c-recursion",
-        "d-stacks-queues"
+        "d-stacks-queues",
+        "m-asymptotic-notation"
       ],
       "scope": "Recursive and explicit-stack formulations; discovery and finish; visited marking; connected components; cycle detection; Theta(V + E); recursion depth on large graphs; contrast with BFS."
     },
